@@ -298,4 +298,4 @@ Per-phase acceptance criteria: [OUTLINE.md#implementation-phases](OUTLINE.md#imp
 
 ## License
 
-TBD.
+[MIT](LICENSE) — documentation and audit tooling in this repository.

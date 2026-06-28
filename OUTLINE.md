@@ -121,7 +121,7 @@ Official docs for Bun primitives. Registry: [REFS.md](REFS.md#bun-b01-b08).
 | B07 | install | [Package manager](REFS.md#ref-b07) | Dependency setup (future) |
 | B08 | Test runner | [Test runner](REFS.md#ref-b08) | Unit/integration tests (future) |
 
-**Cross-links:** [README — Bun references](README.md#bun-references) · [spec — Scheduled jobs](spec.html#scheduled-jobs) · [spec — Architecture](spec.html#architecture)
+**Cross-links:** [README — Reference registry](README.md#reference-registry) · [spec — Scheduled jobs](spec.html#scheduled-jobs) · [spec — Architecture](spec.html#architecture)
 
 ### Effect references
 
@@ -133,7 +133,7 @@ Official docs for Bun primitives. Registry: [REFS.md](REFS.md#bun-b01-b08).
 | E04 | Retry | [Retrying](REFS.md#ref-e04) | Cron error recovery |
 | E05 | `Effect.gen` | [Getting started](REFS.md#ref-e05) | `dailySummaryJob`, handlers |
 
-**Cross-links:** [README — Effect references](README.md#effect-references) · [spec — Edge cases](spec.html#edge-cases)
+**Cross-links:** [README — Reference registry](README.md#reference-registry) · [spec — Edge cases](spec.html#edge-cases)
 
 ### grammY & Telegram references
 
@@ -145,7 +145,7 @@ Official docs for Bun primitives. Registry: [REFS.md](REFS.md#bun-b01-b08).
 | T04 | Forum topics | [Bot API — forum topics](REFS.md#ref-t04) | Strict `message_thread_id` mapping |
 | T05 | Bot API | [Telegram Bot API](REFS.md#ref-t05) | Updates, callbacks |
 
-**Cross-links:** [README — grammY references](README.md#grammy--telegram-references) · [spec — Command matrix](spec.html#command-matrix) · [spec — Demo](spec.html#mockup)
+**Cross-links:** [README — Reference registry](README.md#reference-registry) · [spec — Command matrix](spec.html#command-matrix) · [spec — Demo](spec.html#mockup)
 
 ### Google Sheets references
 
@@ -157,7 +157,7 @@ Official docs for Bun primitives. Registry: [REFS.md](REFS.md#bun-b01-b08).
 | S04 | Auth | [Service account](REFS.md#ref-s04) | Credentials |
 | S05 | REST | [values.append](REFS.md#ref-s05) | HTTP API reference |
 
-**Cross-links:** [README — Sheets references](README.md#google-sheets-references) · [spec — Sheet contracts](spec.html#sheet-contracts)
+**Cross-links:** [README — Reference registry](README.md#reference-registry) · [spec — Sheet contracts](spec.html#sheet-contracts)
 
 ---
 
