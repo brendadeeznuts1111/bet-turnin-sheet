@@ -90,15 +90,16 @@ flowchart TD
 
     subgraph safety [L3 Safety]
         BigTicket["Big-ticket keyboard"]
+        Approvals["Approvals gate (v2.7)"]
         RateLimit["Rate limiter"]
         Audit["Audit logger"]
-        Parse --> BigTicket --> Audit
-        BigTicket --> RateLimit
+        Parse --> BigTicket --> Approvals --> Audit
+        Approvals --> RateLimit
     end
 
     subgraph storage [L4 Storage]
         Sheets["Google Sheets API"]
-        Tabs["BetLog · PaymentLog · AuditLog · Config"]
+        Tabs["BetLog · PaymentLog · AuditLog · Config · Approvals"]
         RateLimit --> Sheets --> Tabs
     end
 
@@ -115,6 +116,7 @@ flowchart TD
 
 - **Architecture deep-dive:** [OUTLINE.md](OUTLINE.md#architecture-layers)
 - **Full flow diagram:** [spec.html#architecture](spec.html#architecture)
+- **Domain approvals (v2.7):** [spec.html#domain-approvals](spec.html#domain-approvals) · [Phase 7](OUTLINE.md#phase-7)
 
 ---
 
@@ -230,6 +232,8 @@ Timestamp | Partner | Thread_ID | User_ID | Date | Event | Odds | Risk | W/L | R
 ```
 
 Column contracts: [SPEC-06](REFS.md#ref-spec-06) · [spec.html#sheet-contracts](spec.html#sheet-contracts) · Sign-offs: [SPEC-10](REFS.md#ref-spec-10)
+
+PaymentLog columns (A–I; G–I are v2.7 Finance sign-off): `Timestamp`, `Partner`, `Thread_ID`, `Amount`, `Method`, `Description`, `Finance_Signoff_By`, `Finance_Signoff_At`, `Finance_Signoff_Note`
 
 ---
 

@@ -176,7 +176,7 @@ Sections in [spec.html](spec.html). Use when citing project requirements (not ex
 | [SPEC-02](#ref-spec-02) | Hub & partner config | [#hub-config](spec.html#hub-config) | [E02](REFS.md#ref-e02), [B05](REFS.md#ref-b05), [S03](REFS.md#ref-s03) |
 | [SPEC-03](#ref-spec-03) | Scheduled jobs | [#scheduled-jobs](spec.html#scheduled-jobs) | [B04](REFS.md#ref-b04), [E04](REFS.md#ref-e04), [E05](REFS.md#ref-e05) |
 | [SPEC-04](#ref-spec-04) | Command matrix | [#command-matrix](spec.html#command-matrix) | [T01](REFS.md#ref-t01), [T04](REFS.md#ref-t04), [T05](REFS.md#ref-t05) |
-| [SPEC-05](#ref-spec-05) | Edge cases | [#edge-cases](spec.html#edge-cases) | [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) |
+| [SPEC-05](#ref-spec-05) | Edge cases | [#edge-cases](spec.html#edge-cases) | [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) → [SPEC-10](REFS.md#ref-spec-10) (Phase 7) |
 | [SPEC-06](#ref-spec-06) | Sheet contracts | [#sheet-contracts](spec.html#sheet-contracts) | [S01](REFS.md#ref-s01), [S02](REFS.md#ref-s02), [S05](REFS.md#ref-s05) |
 | [SPEC-07](#ref-spec-07) | Rules summary | [#rules-summary](spec.html#rules-summary) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04), [B04](REFS.md#ref-b04) |
 | [SPEC-08](#ref-spec-08) | Architecture | [#architecture](spec.html#architecture) | [B03](REFS.md#ref-b03), [B04](REFS.md#ref-b04), [T02](REFS.md#ref-t02), [E03](REFS.md#ref-e03) |

@@ -36,6 +36,7 @@ Ash logs bets for multiple partners in one Telegram supergroup. Each partner use
 |------|-----------|
 | Zero mis-logged bets | Strict `message_thread_id` → partner mapping |
 | Typo protection | Inline keyboard when `risk > big_ticket_threshold` |
+| High-stakes governance | Domain approvals — Risk / Finance / Compliance / Ops ([SPEC-10](REFS.md#ref-spec-10)) |
 | Self-service config | Config sheet tab, 5-second reload |
 | Autonomous visibility | Daily P&L digest + midnight integrity check |
 
@@ -47,8 +48,8 @@ Ash logs bets for multiple partners in one Telegram supergroup. Each partner use
 |-------|----------------|-----------------|
 | **L1 — Telegram** | Supergroup, forum topics, webhooks | grammY bot, webhook handler |
 | **L2 — Processing** | Security, config, mapping, parsing | `ConfigService`, `PartnerMapper`, Effect Schema parsers |
-| **L3 — Safety** | Confirmations, rate limits, audit | `PendingBetStore`, callback handlers, `AuditLogger` |
-| **L4 — Storage** | Sheet I/O, config cache | `SheetApiService`, tab appenders |
+| **L3 — Safety** | Confirmations, rate limits, audit, approvals (v2.7) | `PendingBetStore`, callback handlers, `AuditLogger`, `ApprovalService` |
+| **L4 — Storage** | Sheet I/O, config cache | `SheetApiService`, tab appenders (`BetLog`, `PaymentLog`, `AuditLog`, `Config`, `Approvals`) |
 | **Cron** | Background jobs | `dailySummaryJob`, `integrityCheckJob`, `weeklyReportJob`, `leaderboardCacheJob` |
 
 ### Request flow
@@ -86,7 +87,9 @@ flowchart TD
         KB -->|cancel| ABORT["Audit: CANCELLED"]
         KB -->|confirm| GO["Proceed"]
         CHECK -->|no| GO
-        GO --> AUDIT["Audit logger"] --> RATE["Rate limiter"]
+        GO --> APPROVE{"Approvals gate<br>v2.7"}
+        APPROVE -->|approved| AUDIT["Audit logger"] --> RATE["Rate limiter"]
+        APPROVE -->|pending| WAIT["Hold / notify admin"]
     end
 
     subgraph STORAGE["L4 Storage"]
@@ -95,6 +98,7 @@ flowchart TD
         API --> PL["PaymentLog"]
         API --> AL["AuditLog"]
         API --> CF["Config"]
+        API --> AP["Approvals"]
         API --> REPLY["Confirmation reply"]
     end
 
@@ -194,8 +198,9 @@ bet-turnin-sheet/
 │   ├── index.ts              # Bun.serve webhook + cron bootstrap
 │   ├── bot.ts                # grammY setup, command routing
 │   ├── config/               # Effect schema + ConfigService
-│   ├── commands/             # logbet, settle, payment, status, ...
+│   ├── commands/             # logbet, settle, payment, approvals, ...
 │   ├── safety/               # big-ticket keyboard, rate limiter
+│   ├── approvals/            # ApprovalService, domain gates (v2.7 · SPEC-10)
 │   ├── sheets/               # Google Sheets client + writers
 │   ├── cron/                 # scheduled jobs
 │   └── schemas/              # BetPayload, PaymentPayload, ...
@@ -295,7 +300,7 @@ Full specs: [spec.html#sheet-contracts](spec.html#sheet-contracts) · [SPEC-06](
 | **Config** | Live config; polled every 5s | [S03](REFS.md#ref-s03) · [SPEC-02](REFS.md#ref-spec-02) |
 | **Approvals** | Central sign-off audit trail (v2.7) | [SPEC-10](REFS.md#ref-spec-10) · [S02](REFS.md#ref-s02) |
 
-**AuditLog actions:** `BET_LOGGED` · `PAYMENT_LOGGED` · `CONFIRM_CLICKED` · `CANCELLED` · `REJECTED` · `ADMIN_OVERRIDE`
+**AuditLog actions:** `BET_LOGGED` · `PAYMENT_LOGGED` · `CONFIRM_CLICKED` · `CANCELLED` · `REJECTED` · `ADMIN_OVERRIDE` · `APPROVAL_REQUESTED` · `APPROVAL_GRANTED` · `APPROVAL_REJECTED` (v2.7)
 
 ---
 
@@ -316,7 +321,7 @@ Full table: [spec.html#hub-config](spec.html#hub-config) · [SPEC-02](REFS.md#re
 
 ## Edge cases index
 
-Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#ref-spec-05).
+Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#ref-spec-05) · Approvals: [SPEC-10](REFS.md#ref-spec-10)
 
 **Rejected — not written to AuditLog**
 
@@ -448,6 +453,7 @@ Spec: [spec.html#domain-approvals](spec.html#domain-approvals) · Pairing: [REFS
 
 | Enhancement | Layer | Notes |
 |-------------|-------|-------|
+| Domain approval layer | Safety → Storage | [Phase 7](OUTLINE.md#phase-7) · [SPEC-10](REFS.md#ref-spec-10) |
 | Partner web dashboard | Storage → External | Read-only per-partner totals |
 | Anomaly detection | Safety | Unusual pattern alerts |
 | Multi-currency odds | Parser | Decimal / fractional / American |

@@ -1446,7 +1446,7 @@ Bun.cron("daily_summary", {
                             <tr><td>A</td><td><code>Timestamp</code></td><td>datetime</td><td><span class="badge badge-success">Yes</span></td><td>Exact time of action</td></tr>
                             <tr><td>B</td><td><code>User_ID</code></td><td>integer</td><td><span class="badge badge-success">Yes</span></td><td>Telegram user who performed action</td></tr>
                             <tr><td>C</td><td><code>Thread_ID</code></td><td>integer</td><td><span class="badge badge-success">Yes</span></td><td>Topic where action occurred</td></tr>
-                            <tr><td>D</td><td><code>Action</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>BET_LOGGED</code>, <code>PAYMENT_LOGGED</code>, <code>CONFIRM_CLICKED</code>, <code>CANCELLED</code>, <code>REJECTED</code>, <code>ADMIN_OVERRIDE</code></td></tr>
+                            <tr><td>D</td><td><code>Action</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>BET_LOGGED</code>, <code>PAYMENT_LOGGED</code>, <code>CONFIRM_CLICKED</code>, <code>CANCELLED</code>, <code>REJECTED</code>, <code>ADMIN_OVERRIDE</code>, <code>APPROVAL_*</code> (v2.7)</td></tr>
                             <tr><td>E</td><td><code>Payload_JSON</code></td><td>text</td><td><span class="badge badge-success">Yes</span></td><td>Serialized full payload</td></tr>
                             <tr><td>F</td><td><code>Status</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>SUCCESS</code>, <code>FAILED_VALIDATION</code>, <code>CANCELLED</code>, <code>RATE_LIMITED</code></td></tr>
                             <tr><td>G</td><td><code>Error_Message</code></td><td>text</td><td><span class="badge badge-info">No</span></td><td>Human-readable error if failed</td></tr>
@@ -1777,6 +1777,7 @@ flowchart TD
                     <a href="REFS.md#ref-t04" class="ref-tag">T04</a>
                     <a href="REFS.md#ref-spec-04" class="ref-tag spec">SPEC-04</a>
                     <a href="REFS.md#ref-spec-03" class="ref-tag spec">SPEC-03</a>
+                    <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a>
                     <a href="REFS.md#ref-b04" class="ref-tag">B04</a>
                     <a href="REFS.md" class="ref-bar-more">REFS.md →</a>
                 </div>
@@ -1787,6 +1788,7 @@ flowchart TD
                     <button class="snapshot-tab" data-scenario="leaderboard">🏆 Leaderboard<a href="REFS.md#ref-s03" class="tab-ref" onclick="event.stopPropagation()">S03</a></button>
                     <button class="snapshot-tab" data-scenario="settleup">💰 Settle Up<a href="REFS.md#ref-spec-04" class="tab-ref" onclick="event.stopPropagation()">SPEC-04</a></button>
                     <button class="snapshot-tab" data-scenario="daily">📅 Daily Summary<a href="REFS.md#ref-b04" class="tab-ref" onclick="event.stopPropagation()">B04</a></button>
+                    <button class="snapshot-tab" data-scenario="approvals">✅ Approvals<a href="REFS.md#ref-spec-10" class="tab-ref" onclick="event.stopPropagation()">SPEC-10</a></button>
                 </div>
 
                 <div class="mockup-wrapper">
@@ -1816,7 +1818,7 @@ flowchart TD
                                 <div class="tg-msg"><div class="avatar user">A</div><div class="tg-bubble"><div class="sender">Ash</div><span class="code">/logbet 2026-06-20 "mulch account" 100 5750 L</span><div class="time">10:42 AM</div></div></div>
                                 <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div><span class="emoji">⚠️</span> <span class="bold">Large Bet Detected!</span><br>Risk: $5,750.00 | Partner: Eddie<br><div class="tg-keyboard"><button class="tg-btn confirm">✅ Confirm</button><button class="tg-btn cancel">❌ Cancel</button></div><div class="time">10:42 AM</div></div></div>
                                 <div class="tg-msg right"><div class="avatar user">A</div><div class="tg-bubble"><div class="sender">Ash</div>✅ Confirm<div class="time">10:43 AM</div></div></div>
-                                <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div><span class="emoji">✅</span> <span class="bold">Confirmed!</span><br>Bet logged for <span class="bold">Eddie</span><br>Risk: $5,750 | Result: -$5,750<br><span style="color: #fbbf24;">Running Total: <span class="bold">-$5,750.71</span></span><div class="time">10:43 AM</div></div></div>
+                                <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div><span class="emoji">✅</span> <span class="bold">Confirmed!</span><br>Bet logged for <span class="bold">Eddie</span><br>Risk: $5,750 | Result: -$5,750<br><span style="color: #fbbf24;">Running Total: <span class="bold">-$5,750.71</span></span><br><span class="text-muted text-sm">v2.7: Risk sign-off recorded · REQ-1042</span><div class="time">10:43 AM</div></div></div>
                             </div>
 
                             <div id="scenario-parlay" class="scenario">
@@ -1841,6 +1843,13 @@ flowchart TD
 
                             <div id="scenario-daily" class="scenario">
                                 <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div><span class="emoji">📅</span> <span class="bold">Yesterday's P&L Summary</span><br><span class="text-muted text-sm">June 26, 2026</span><br><br>Eddie: <span style="color: #f87171;">-$5,750.71</span><br>Mike: <span style="color: #4ade80;">+$1,200.00</span><br>Stacks: <span style="color: #4ade80;">+$500.00</span><br><strong>Total: <span style="color: #fbbf24;">-$4,050.71</span></strong><br><br><span class="text-muted text-sm">Auto-generated daily summary.</span><div class="time">9:00 AM</div></div></div>
+                            </div>
+
+                            <div id="scenario-approvals" class="scenario">
+                                <div class="tg-msg"><div class="avatar user">A</div><div class="tg-bubble"><div class="sender">Ash</div><span class="code">/approvals pending</span><div class="time">4:15 PM</div></div></div>
+                                <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div><span class="emoji">✅</span> <span class="bold">Pending Approvals</span><br><br><code>REQ-1042</code> · <strong>Risk</strong> · Eddie bet $5,750<br><code>REQ-1045</code> · <strong>Finance</strong> · Settleup $5,750.71<br><br><span class="text-muted text-sm">Use <code>/approve &lt;id&gt;</code> or <code>/reject &lt;id&gt;</code></span><div class="time">4:15 PM</div></div></div>
+                                <div class="tg-msg right"><div class="avatar user">A</div><div class="tg-bubble"><div class="sender">Ash</div><span class="code">/approve REQ-1045</span><div class="time">4:16 PM</div></div></div>
+                                <div class="tg-msg"><div class="avatar bot">🤖</div><div class="tg-bubble" style="background: var(--bot-msg);"><div class="sender" style="color: #7dd3fc;">@TurnInLoggerBot</div>✅ Approved <code>REQ-1045</code> (Finance). Payment link unlocked for Eddie.<div class="time">4:16 PM</div></div></div>
                             </div>
                         </div>
                     </div>
