@@ -6,7 +6,7 @@
 |---|---|
 | **Version** | Spec v2.6 |
 | **Status** | Documentation and design complete · **implementation not started** |
-| **Repo** | [`bet-turnin-sheet`](.) |
+| **Repo** | [brendadeeznuts1111/bet-turnin-sheet](https://github.com/brendadeeznuts1111/bet-turnin-sheet) |
 
 ## Contents
 
