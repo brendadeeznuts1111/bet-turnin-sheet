@@ -13,7 +13,8 @@ Canonical **Ref IDs** for this project. Cite these in specs, code comments, comm
 ## Audit status
 
 > **Canonical data:** [refs.json](refs.json) · **Schema:** [refs.schema.json](refs.schema.json)
-> **Run:** `bun run audit:refs --fix` · **CI:** `bun run audit:refs --strict` · **Offline:** `bun run audit:refs:offline` · **Fresh URLs:** `bun run audit:refs --no-cache`
+> **Run:** `bun run audit:refs --fix` · **Gate:** `bun run audit:refs --strict` · **Offline:** `bun run audit:refs:offline` · **Fresh URLs:** `bun run audit:refs --no-cache`
+> **Governance:** local audit + [domain signoffs](#domain-signoffs) (no GitHub Actions)
 > **Last audit:** 2026-06-28 · **Status:** pass · **Refs:** 36 · [JSON](ref-audit.json) · [Report](ref-audit.md)
 
 | Check | Description |
@@ -26,7 +27,20 @@ Canonical **Ref IDs** for this project. Cite these in specs, code comments, comm
 | Pairings | All pairing refs resolve |
 | Cross-ref matrix | `crossRefMatrix` specs and external refs valid |
 
-## How to cite
+## Domain signoffs
+
+External refs are grouped by **domain**. After `bun run audit:refs --strict` passes, record a signoff per domain (not per ref). Internal groups (SPEC, DOC) follow doc review only.
+
+| Group | Domain | Refs | Signed off | Notes |
+|-------|--------|------|------------|-------|
+| [Bun (B01–B08)](#bun-b01-b08) | `bun.com` | B01–B08 | — | Run `--strict`, then `--fix` |
+| [Effect (E01–E05)](#effect-e01-e05) | `effect.website` | E01–E05 | — | |
+| [grammY/Telegram (T01–T05)](#grammy-telegram-t01-t05) | `grammy.dev` · `core.telegram.org` | T01–T05 | — | Two domains, one signoff row |
+| [Google Sheets (S01–S05)](#google-sheets-s01-s05) | `developers.google.com` | S01–S05 | — | |
+
+**Workflow:** audit → strict gate → update signoff date in this table → commit `refs.json` + `ref-audit.json` with `--fix`.
+
+---
 
 Machine-readable registry: [refs.json](refs.json). Edit JSON first; keep REFS.md table URLs in sync.
 

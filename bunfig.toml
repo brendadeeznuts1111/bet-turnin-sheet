@@ -1,5 +1,5 @@
 # Project overrides (~/.bunfig.toml shallow merge)
-# Enable committed lockfile for CI reproducibility; relax frozen lockfile for local dev.
+# Enable committed lockfile for reproducible installs; relax frozen lockfile for local dev.
 [install]
 saveTextLockfile = true
 frozenLockfile = false

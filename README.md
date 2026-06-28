@@ -269,10 +269,12 @@ CONFIG_CACHE_TTL_MS=5000
 ```bash
 bun run audit:refs              # full audit
 bun run audit:refs --fix        # update lastChecked in refs.json
-bun run audit:refs --strict     # fail on warnings (CI)
+bun run audit:refs --strict     # fail on warnings (pre-signoff gate)
 bun run audit:refs:offline      # drift check without network
 bun run audit:refs --no-cache   # bypass 24h URL cache
 ```
+
+**Governance:** No GitHub Actions — run audit locally, then record **domain signoffs** per external group (B/E/T/S) in [REFS.md#domain-signoffs](REFS.md#domain-signoffs).
 
 ```bash
 open spec.html   # macOS — open in default browser
