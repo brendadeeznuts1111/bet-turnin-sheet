@@ -133,33 +133,33 @@ flowchart TD
 - **[refs.json](refs.json)** — machine-readable SSOT (validated by audit); all external (B01–S05), internal spec (SPEC-01–SPEC-09), and document (DOC-01–DOC-04) IDs.
 - **[REFS.md](REFS.md)** (DOC-04) — human-readable view (URLs synced to refs.json).
 
-| Prefix | Range | Meaning |
-|--------|-------|---------|
-| B | B01–B08 | Bun |
-| E | E01–E05 | Effect |
-| T | T01–T05 | grammY / Telegram |
-| S | S01–S05 | Google Sheets |
-| SPEC | SPEC-01–SPEC-09 | [spec.html](spec.html) sections |
-| DOC | DOC-01–DOC-04 | Project markdown / spec files |
+| Prefix | Range | Meaning | Registry |
+|--------|-------|---------|----------|
+| B | B01–B08 | Bun | [REFS.md#bun-b01-b08](REFS.md#bun-b01-b08) |
+| E | E01–E05 | Effect | [REFS.md#effect-e01-e05](REFS.md#effect-e01-e05) |
+| T | T01–T05 | grammY / Telegram | [REFS.md#grammy-telegram-t01-t05](REFS.md#grammy-telegram-t01-t05) |
+| S | S01–S05 | Google Sheets | [REFS.md#google-sheets-s01-s05](REFS.md#google-sheets-s01-s05) |
+| SPEC | SPEC-01–SPEC-09 | [spec.html](spec.html) sections | [REFS.md#internal-spec-sections](REFS.md#internal-spec-sections) |
+| DOC | DOC-01–DOC-04 | Project markdown / spec files | [REFS.md#project-documents](REFS.md#project-documents) |
 
 Quick links: [Bun (B01–B08)](REFS.md#bun-b01-b08) · [Effect (E01–E05)](REFS.md#effect-e01-e05) · [grammY/Telegram (T01–T05)](REFS.md#grammy-telegram-t01-t05) · [Sheets (S01–S05)](REFS.md#google-sheets-s01-s05) · [Spec (SPEC-01–09)](REFS.md#internal-spec-sections) · [Matrix](REFS.md#cross-reference-matrix)
 
-Field-by-field config: [SPEC-02](REFS.md#ref-spec-02) · Command matrix: [SPEC-04](REFS.md#ref-spec-04) · Category tables also in [OUTLINE.md](OUTLINE.md#bun-api-references).
+Field-by-field config: [SPEC-02](REFS.md#ref-spec-02) · Command matrix: [SPEC-04](REFS.md#ref-spec-04) · Key pairings: [REFS.md#key-pairings](REFS.md#key-pairings) · Category tables: [OUTLINE.md](OUTLINE.md#bun-api-references)
 
 ---
 
 ## Commands (quick reference)
 
-| Command | Context | Result |
-|---------|---------|--------|
-| `/logbet ...` | Partner topic | Log bet for mapped partner |
-| `/logbet ...` | General topic | **Rejected** |
-| `/status` | Partner topic | Last 5 bets + running total |
-| `/settle` | Partner topic | Running total for that partner |
-| `/settle` | General topic | Master total across all partners |
-| `/settle @mike` | General topic | Total for named partner |
-| `/payment ...` | Partner topic | Log payment (negative = Ash pays out) |
-| `/listpartners` | Any topic | List active partners |
+| Command | Context | Result | Ref IDs |
+|---------|---------|--------|---------|
+| `/logbet ...` | Partner topic | Log bet for mapped partner | [SPEC-04](REFS.md#ref-spec-04) · [T04](REFS.md#ref-t04) · [E02](REFS.md#ref-e02) · [S02](REFS.md#ref-s02) |
+| `/logbet ...` | General topic | **Rejected** | [SPEC-04](REFS.md#ref-spec-04) · [SPEC-07](REFS.md#ref-spec-07) |
+| `/status` | Partner topic | Last 5 bets + running total | [SPEC-04](REFS.md#ref-spec-04) · [S03](REFS.md#ref-s03) |
+| `/settle` | Partner topic | Running total for that partner | [SPEC-04](REFS.md#ref-spec-04) |
+| `/settle` | General topic | Master total across all partners | [SPEC-04](REFS.md#ref-spec-04) · [SPEC-07](REFS.md#ref-spec-07) |
+| `/settle @mike` | General topic | Total for named partner | [SPEC-04](REFS.md#ref-spec-04) |
+| `/payment ...` | Partner topic | Log payment (negative = Ash pays out) | [SPEC-04](REFS.md#ref-spec-04) · [S02](REFS.md#ref-s02) |
+| `/listpartners` | Any topic | List active partners | [SPEC-04](REFS.md#ref-spec-04) · [SPEC-02](REFS.md#ref-spec-02) |
 
 Extended commands and full behavior matrix: [SPEC-04](REFS.md#ref-spec-04) in [spec.html#command-matrix](spec.html#command-matrix) · [OUTLINE — Command catalog](OUTLINE.md#command-catalog).
 
@@ -209,12 +209,12 @@ Field-by-field reference: [SPEC-02](REFS.md#ref-spec-02) · [spec.html#hub-confi
 
 ## Google Sheets
 
-| Tab | Purpose |
-|-----|---------|
-| **BetLog** | Bet history; formulas compute `Result` and `Running_Total` |
-| **PaymentLog** | Settlement payments |
-| **AuditLog** | Immutable action log (confirm, cancel, overrides) |
-| **Config** | Live bot configuration |
+| Tab | Purpose | Ref IDs |
+|-----|---------|---------|
+| **BetLog** | Bet history; formulas compute `Result` and `Running_Total` | [SPEC-06](REFS.md#ref-spec-06) · [S02](REFS.md#ref-s02) |
+| **PaymentLog** | Settlement payments | [SPEC-06](REFS.md#ref-spec-06) · [S02](REFS.md#ref-s02) |
+| **AuditLog** | Immutable action log (confirm, cancel, overrides) | [SPEC-06](REFS.md#ref-spec-06) · [S02](REFS.md#ref-s02) |
+| **Config** | Live bot configuration | [SPEC-02](REFS.md#ref-spec-02) · [S03](REFS.md#ref-s03) |
 
 BetLog columns (A–M):
 
@@ -230,12 +230,12 @@ Column contracts: [SPEC-06](REFS.md#ref-spec-06) · [spec.html#sheet-contracts](
 
 All times use `scheduled_jobs.timezone` (default `America/Los_Angeles`).
 
-| Job | Schedule | Output |
-|-----|----------|--------|
-| Daily summary | `0 9 * * *` | Yesterday's P&L digest → Admin topic |
-| Weekly report | `0 9 * * 1` | PDF for prior week → Admin topic |
-| Integrity check | `0 0 * * *` | `/check` for all partners; mismatches → AuditLog |
-| Leaderboard cache | `0 18 * * *` | Refreshes cached rankings |
+| Job | Schedule | Output | Ref IDs |
+|-----|----------|--------|---------|
+| Daily summary | `0 9 * * *` | Yesterday's P&L digest → Admin topic | [SPEC-03](REFS.md#ref-spec-03) · [B04](REFS.md#ref-b04) |
+| Weekly report | `0 9 * * 1` | PDF for prior week → Admin topic | [SPEC-03](REFS.md#ref-spec-03) |
+| Integrity check | `0 0 * * *` | `/check` for all partners; mismatches → AuditLog | [SPEC-03](REFS.md#ref-spec-03) · [B04](REFS.md#ref-b04) |
+| Leaderboard cache | `0 18 * * *` | Refreshes cached rankings | [SPEC-03](REFS.md#ref-spec-03) |
 
 Details: [SPEC-03](REFS.md#ref-spec-03) · [spec.html#scheduled-jobs](spec.html#scheduled-jobs) · [B04](REFS.md#ref-b04)
 
@@ -243,7 +243,7 @@ Details: [SPEC-03](REFS.md#ref-spec-03) · [spec.html#scheduled-jobs](spec.html#
 
 ## Environment (planned)
 
-Setup guide will ship with Phase 1 implementation. Expected variables:
+Setup guide will ship with Phase 1 implementation. Expected variables ([B05](REFS.md#ref-b05) · [B06](REFS.md#ref-b06) · [S04](REFS.md#ref-s04)):
 
 ```bash
 TELEGRAM_BOT_TOKEN=
@@ -257,14 +257,14 @@ CONFIG_CACHE_TTL_MS=5000
 
 ## Documentation
 
-| Document | Use when you need… |
-|----------|-------------------|
-| **[refs.json](refs.json)** | Machine-readable Ref registry (SSOT) |
-| **[REFS.md](REFS.md)** (DOC-04) | Human-readable Ref registry — B/E/T/S, SPEC, DOC |
-| **[ref-audit.json](ref-audit.json)** / **[ref-audit.md](ref-audit.md)** | Latest audit reports |
-| **README.md** (DOC-01) | Overview and quick reference |
-| **[OUTLINE.md](OUTLINE.md)** (DOC-02) | Architecture, phases, acceptance criteria |
-| **[spec.html](spec.html)** (DOC-03) | Full v2.6 spec, interactive demo |
+| Document | Ref ID | Use when you need… |
+|----------|--------|-------------------|
+| **[refs.json](refs.json)** | — | Machine-readable Ref registry (SSOT) |
+| **[REFS.md](REFS.md)** | [DOC-04](REFS.md#ref-doc-04) | Human-readable Ref registry — B/E/T/S, SPEC, DOC |
+| **[ref-audit.json](ref-audit.json)** / **[ref-audit.md](ref-audit.md)** | — | Latest audit reports |
+| **[README.md](README.md)** | [DOC-01](REFS.md#ref-doc-01) | Overview and quick reference |
+| **[OUTLINE.md](OUTLINE.md)** | [DOC-02](REFS.md#ref-doc-02) | Architecture, phases, acceptance criteria |
+| **[spec.html](spec.html)** | [DOC-03](REFS.md#ref-doc-03) | Full v2.6 spec, interactive demo |
 
 ```bash
 bun run audit:refs              # full audit
@@ -284,15 +284,15 @@ open spec.html   # macOS — open in default browser
 
 ## Roadmap
 
-| Phase | Scope | Status |
-|-------|-------|--------|
-| **0** | Docs + spec alignment | Done |
-| **1** | Config in Sheets (5s cache) | Pending |
-| **2** | Core path: `/logbet` + sheet write | Pending |
-| **3** | Big-ticket inline keyboard | Pending |
-| **4** | Daily summary cron | Pending |
-| **5** | Integrity check cron | Pending |
-| **6** | Parlay, `/editbet`, leaderboard, weekly PDF | Pending |
+| Phase | Scope | Status | Ref IDs · OUTLINE |
+|-------|-------|--------|-------------------|
+| **0** | Docs + spec alignment | Done | [Phase 0](OUTLINE.md#phase-0) · [SPEC-08](REFS.md#ref-spec-08) |
+| **1** | Config in Sheets (5s cache) | Pending | [Phase 1](OUTLINE.md#phase-1) · [SPEC-02](REFS.md#ref-spec-02) |
+| **2** | Core path: `/logbet` + sheet write | Pending | [Phase 2](OUTLINE.md#phase-2) · [SPEC-04](REFS.md#ref-spec-04) · [SPEC-06](REFS.md#ref-spec-06) |
+| **3** | Big-ticket inline keyboard | Pending | [Phase 3](OUTLINE.md#phase-3) · [SPEC-05](REFS.md#ref-spec-05) · [T03](REFS.md#ref-t03) |
+| **4** | Daily summary cron | Pending | [Phase 4](OUTLINE.md#phase-4) · [SPEC-03](REFS.md#ref-spec-03) |
+| **5** | Integrity check cron | Pending | [Phase 5](OUTLINE.md#phase-5) · [SPEC-03](REFS.md#ref-spec-03) |
+| **6** | Parlay, `/editbet`, leaderboard, weekly PDF | Pending | [Phase 6](OUTLINE.md#phase-6) · [SPEC-09](REFS.md#ref-spec-09) |
 
 Per-phase acceptance criteria: [OUTLINE.md#implementation-phases](OUTLINE.md#implementation-phases).
 

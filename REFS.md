@@ -10,7 +10,16 @@ Canonical **Ref IDs** for this project. Cite these in specs, code comments, comm
 | [OUTLINE.md](OUTLINE.md) | Architecture and phases |
 | [spec.html](spec.html) | Interactive v2.6 spec |
 
-## Audit status
+## Document map
+
+| Need | Start here | Registry | Deep dive |
+|------|------------|----------|-----------|
+| Overview | [README.md](README.md) (DOC-01) | [REFS.md](REFS.md#prefixes) | [spec.html](spec.html) |
+| Architecture & phases | [OUTLINE.md](OUTLINE.md) (DOC-02) | [Cross-ref matrix](#cross-reference-matrix) | [SPEC-08](REFS.md#ref-spec-08) |
+| External APIs | [REFS.md#external-references](#external-references) | [refs.json](refs.json) | [OUTLINE API tables](OUTLINE.md#bun-api-references) |
+| Audit & signoff | [Domain signoffs](#domain-signoffs) | [ref-audit.json](ref-audit.json) | [README — Documentation](README.md#documentation) |
+
+---
 
 > **Canonical data:** [refs.json](refs.json) · **Schema:** [refs.schema.json](refs.schema.json)
 > **Run:** `bun run audit:refs --fix` · **Gate:** `bun run audit:refs --strict` · **Offline:** `bun run audit:refs:offline` · **Fresh URLs:** `bun run audit:refs --no-cache`
@@ -83,52 +92,52 @@ Navigate the spec via sticky nav / sidebar **SPEC-XX** labels, or jump from any 
 
 <a id="bun-b01-b08"></a>
 
-| Ref ID | Topic | Documentation | Project use |
-|--------|-------|---------------|-------------|
-| [B01](#ref-b01) | Runtime overview | [bun.com/docs](https://bun.com/docs) | TypeScript runtime and tooling |
-| [B02](#ref-b02) | TypeScript & types | [Runtime → TypeScript](https://bun.com/docs/runtime/typescript) | `bun-types`, strict typing |
-| [B03](#ref-b03) | HTTP server (`Bun.serve`) | [API → HTTP](https://bun.com/docs/api/http) | Telegram webhook endpoint |
-| [B04](#ref-b04) | Cron (`Bun.cron`) | [Runtime → Cron](https://bun.com/docs/runtime/cron) | Daily summary, integrity check |
-| [B05](#ref-b05) | Environment (`Bun.env`) | [Runtime → Env](https://bun.com/docs/runtime/env) | Bot token, sheet ID, cache TTL |
-| [B06](#ref-b06) | File I/O (`Bun.file`) | [API → File I/O](https://bun.com/docs/api/file-io) | Config JSON, service-account file |
-| [B07](#ref-b07) | Package manager | [install](https://bun.com/docs/pm/cli/install) | Dependency setup (future) |
-| [B08](#ref-b08) | Test runner | [Test runner](https://bun.com/docs/test) | Unit/integration tests (future) |
+| Ref ID | Topic | Documentation | Project use | Related SPEC |
+|--------|-------|---------------|-------------|--------------|
+| [B01](#ref-b01) | Runtime overview | [bun.com/docs](https://bun.com/docs) | TypeScript runtime and tooling | — |
+| [B02](#ref-b02) | TypeScript & types | [Runtime → TypeScript](https://bun.com/docs/runtime/typescript) | `bun-types`, strict typing | — |
+| [B03](#ref-b03) | HTTP server (`Bun.serve`) | [API → HTTP](https://bun.com/docs/api/http) | Telegram webhook endpoint | [SPEC-08](REFS.md#ref-spec-08) |
+| [B04](#ref-b04) | Cron (`Bun.cron`) | [Runtime → Cron](https://bun.com/docs/runtime/cron) | Daily summary, integrity check | [SPEC-03](REFS.md#ref-spec-03) |
+| [B05](#ref-b05) | Environment (`Bun.env`) | [Runtime → Env](https://bun.com/docs/runtime/env) | Bot token, sheet ID, cache TTL | [SPEC-02](REFS.md#ref-spec-02) |
+| [B06](#ref-b06) | File I/O (`Bun.file`) | [API → File I/O](https://bun.com/docs/api/file-io) | Config JSON, service-account file | — |
+| [B07](#ref-b07) | Package manager | [install](https://bun.com/docs/pm/cli/install) | Dependency setup (future) | — |
+| [B08](#ref-b08) | Test runner | [Test runner](https://bun.com/docs/test) | Unit/integration tests (future) | — |
 
 ### Effect (E01–E05)
 
 <a id="effect-e01-e05"></a>
 
-| Ref ID | Topic | Documentation | Project use |
-|--------|-------|---------------|-------------|
-| [E01](#ref-e01) | Overview | [effect.website/docs](https://effect.website/docs) | Typed services, error handling |
-| [E02](#ref-e02) | Schema | [Schema introduction](https://effect.website/docs/schema/introduction/) | Command + config validation |
-| [E03](#ref-e03) | Layers & services | [Requirements management](https://effect.website/docs/requirements-management/layers) | `ConfigService`, `SheetApiService` |
-| [E04](#ref-e04) | Retry | [Retrying](https://effect.website/docs/error-management/retrying) | Cron failure recovery |
-| [E05](#ref-e05) | `Effect.gen` | [Getting started](https://effect.website/docs/getting-started/introduction) | Cron workflows, handlers |
+| Ref ID | Topic | Documentation | Project use | Related SPEC |
+|--------|-------|---------------|-------------|--------------|
+| [E01](#ref-e01) | Overview | [effect.website/docs](https://effect.website/docs) | Typed services, error handling | — |
+| [E02](#ref-e02) | Schema | [Schema introduction](https://effect.website/docs/schema/introduction/) | Command + config validation | [SPEC-02](REFS.md#ref-spec-02), [SPEC-05](REFS.md#ref-spec-05) |
+| [E03](#ref-e03) | Layers & services | [Requirements management](https://effect.website/docs/requirements-management/layers) | `ConfigService`, `SheetApiService` | [SPEC-08](REFS.md#ref-spec-08) |
+| [E04](#ref-e04) | Retry | [Retrying](https://effect.website/docs/error-management/retrying) | Cron failure recovery | [SPEC-03](REFS.md#ref-spec-03) |
+| [E05](#ref-e05) | `Effect.gen` | [Getting started](https://effect.website/docs/getting-started/introduction) | Cron workflows, handlers | [SPEC-03](REFS.md#ref-spec-03) |
 
 ### grammY & Telegram (T01–T05)
 
 <a id="grammy-telegram-t01-t05"></a>
 
-| Ref ID | Topic | Documentation | Project use |
-|--------|-------|---------------|-------------|
-| [T01](#ref-t01) | grammY guide | [grammy.dev/guide](https://grammy.dev/guide/) | Bot setup, command routing |
-| [T02](#ref-t02) | Webhooks | [Deployment — Webhooks](https://grammy.dev/guide/deployment-types.html) | Webhook via B03 |
-| [T03](#ref-t03) | Inline keyboards | [Keyboard plugin](https://grammy.dev/plugins/keyboard.html) | Big-ticket Confirm/Cancel |
-| [T04](#ref-t04) | Forum topics | [Bot API — forum topics](https://core.telegram.org/bots/api#forum-topic-edited) | `message_thread_id` mapping |
-| [T05](#ref-t05) | Bot API | [core.telegram.org/bots/api](https://core.telegram.org/bots/api) | Updates, callbacks |
+| Ref ID | Topic | Documentation | Project use | Related SPEC |
+|--------|-------|---------------|-------------|--------------|
+| [T01](#ref-t01) | grammY guide | [grammy.dev/guide](https://grammy.dev/guide/) | Bot setup, command routing | [SPEC-04](REFS.md#ref-spec-04) |
+| [T02](#ref-t02) | Webhooks | [Deployment — Webhooks](https://grammy.dev/guide/deployment-types.html) | Webhook via B03 | [SPEC-08](REFS.md#ref-spec-08) |
+| [T03](#ref-t03) | Inline keyboards | [Keyboard plugin](https://grammy.dev/plugins/keyboard.html) | Big-ticket Confirm/Cancel | [SPEC-05](REFS.md#ref-spec-05), [SPEC-07](REFS.md#ref-spec-07), [SPEC-09](REFS.md#ref-spec-09) |
+| [T04](#ref-t04) | Forum topics | [Bot API — forum topics](https://core.telegram.org/bots/api#forum-topic-edited) | `message_thread_id` mapping | [SPEC-04](REFS.md#ref-spec-04), [SPEC-07](REFS.md#ref-spec-07) |
+| [T05](#ref-t05) | Bot API | [core.telegram.org/bots/api](https://core.telegram.org/bots/api) | Updates, callbacks | [SPEC-04](REFS.md#ref-spec-04) |
 
 ### Google Sheets (S01–S05)
 
 <a id="google-sheets-s01-s05"></a>
 
-| Ref ID | Topic | Documentation | Project use |
-|--------|-------|---------------|-------------|
-| [S01](#ref-s01) | Overview | [API concepts](https://developers.google.com/sheets/api/guides/concepts) | Spreadsheet and tab layout |
-| [S02](#ref-s02) | Append rows | [Values — append](https://developers.google.com/sheets/api/guides/values#append_values) | BetLog, PaymentLog, AuditLog |
-| [S03](#ref-s03) | Read values | [Values — read](https://developers.google.com/sheets/api/guides/values) | Config tab, cron reads |
-| [S04](#ref-s04) | Service account | [Authorizing](https://developers.google.com/sheets/api/guides/authorizing#service-account) | Credentials |
-| [S05](#ref-s05) | REST append | [values.append](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append) | HTTP API reference |
+| Ref ID | Topic | Documentation | Project use | Related SPEC |
+|--------|-------|---------------|-------------|--------------|
+| [S01](#ref-s01) | Overview | [API concepts](https://developers.google.com/sheets/api/guides/concepts) | Spreadsheet and tab layout | [SPEC-06](REFS.md#ref-spec-06) |
+| [S02](#ref-s02) | Append rows | [Values — append](https://developers.google.com/sheets/api/guides/values#append_values) | BetLog, PaymentLog, AuditLog | [SPEC-06](REFS.md#ref-spec-06) |
+| [S03](#ref-s03) | Read values | [Values — read](https://developers.google.com/sheets/api/guides/values) | Config tab, cron reads | [SPEC-02](REFS.md#ref-spec-02) |
+| [S04](#ref-s04) | Service account | [Authorizing](https://developers.google.com/sheets/api/guides/authorizing#service-account) | Credentials | — |
+| [S05](#ref-s05) | REST append | [values.append](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append) | HTTP API reference | [SPEC-06](REFS.md#ref-spec-06) |
 
 <!-- external ref anchors -->
 <a id="ref-b01"></a><a id="ref-b02"></a><a id="ref-b03"></a><a id="ref-b04"></a><a id="ref-b05"></a><a id="ref-b06"></a><a id="ref-b07"></a><a id="ref-b08"></a>
@@ -147,14 +156,14 @@ Sections in [spec.html](spec.html). Use when citing project requirements (not ex
 | Ref ID | Section | spec.html | Related external Ref IDs |
 |--------|---------|-----------|--------------------------|
 | [SPEC-01](#ref-spec-01) | Changelog | [#changelog](spec.html#changelog) | — |
-| [SPEC-02](#ref-spec-02) | Hub & partner config | [#hub-config](spec.html#hub-config) | E02, B05, S03 |
-| [SPEC-03](#ref-spec-03) | Scheduled jobs | [#scheduled-jobs](spec.html#scheduled-jobs) | B04, E04, E05 |
-| [SPEC-04](#ref-spec-04) | Command matrix | [#command-matrix](spec.html#command-matrix) | T01, T04, T05 |
-| [SPEC-05](#ref-spec-05) | Edge cases | [#edge-cases](spec.html#edge-cases) | E02, T03 |
-| [SPEC-06](#ref-spec-06) | Sheet contracts | [#sheet-contracts](spec.html#sheet-contracts) | S01, S02, S05 |
-| [SPEC-07](#ref-spec-07) | Rules summary | [#rules-summary](spec.html#rules-summary) | T03, T04, B04 |
-| [SPEC-08](#ref-spec-08) | Architecture | [#architecture](spec.html#architecture) | B03, B04, T02, E03 |
-| [SPEC-09](#ref-spec-09) | Interactive demo | [#mockup](spec.html#mockup) | T03, T04 |
+| [SPEC-02](#ref-spec-02) | Hub & partner config | [#hub-config](spec.html#hub-config) | [E02](REFS.md#ref-e02), [B05](REFS.md#ref-b05), [S03](REFS.md#ref-s03) |
+| [SPEC-03](#ref-spec-03) | Scheduled jobs | [#scheduled-jobs](spec.html#scheduled-jobs) | [B04](REFS.md#ref-b04), [E04](REFS.md#ref-e04), [E05](REFS.md#ref-e05) |
+| [SPEC-04](#ref-spec-04) | Command matrix | [#command-matrix](spec.html#command-matrix) | [T01](REFS.md#ref-t01), [T04](REFS.md#ref-t04), [T05](REFS.md#ref-t05) |
+| [SPEC-05](#ref-spec-05) | Edge cases | [#edge-cases](spec.html#edge-cases) | [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) |
+| [SPEC-06](#ref-spec-06) | Sheet contracts | [#sheet-contracts](spec.html#sheet-contracts) | [S01](REFS.md#ref-s01), [S02](REFS.md#ref-s02), [S05](REFS.md#ref-s05) |
+| [SPEC-07](#ref-spec-07) | Rules summary | [#rules-summary](spec.html#rules-summary) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04), [B04](REFS.md#ref-b04) |
+| [SPEC-08](#ref-spec-08) | Architecture | [#architecture](spec.html#architecture) | [B03](REFS.md#ref-b03), [B04](REFS.md#ref-b04), [T02](REFS.md#ref-t02), [E03](REFS.md#ref-e03) |
+| [SPEC-09](#ref-spec-09) | Interactive demo | [#mockup](spec.html#mockup) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) |
 
 <a id="ref-spec-01"></a><a id="ref-spec-02"></a><a id="ref-spec-03"></a><a id="ref-spec-04"></a><a id="ref-spec-05"></a>
 <a id="ref-spec-06"></a><a id="ref-spec-07"></a><a id="ref-spec-08"></a><a id="ref-spec-09"></a>
@@ -182,14 +191,14 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 
 | SPEC | External Ref IDs | OUTLINE phase |
 |------|------------------|---------------|
-| SPEC-02 | E02, B05, S03 | Phase 1 |
-| SPEC-03 | B04, E04, E05 | Phase 4–5 |
-| SPEC-04 | T01, T04, T05 | Phase 2 |
-| SPEC-05 | E02, T03 | Phase 2–3 |
-| SPEC-06 | S01, S02, S05 | Phase 2 |
-| SPEC-07 | T03, T04 | Phase 3 |
-| SPEC-08 | B03, T02, E03 | Phase 0–2 |
-| SPEC-09 | T03, T04 | Phase 3, 6 |
+| [SPEC-02](REFS.md#ref-spec-02) | [E02](REFS.md#ref-e02), [B05](REFS.md#ref-b05), [S03](REFS.md#ref-s03) | [Phase 1](OUTLINE.md#phase-1) |
+| [SPEC-03](REFS.md#ref-spec-03) | [B04](REFS.md#ref-b04), [E04](REFS.md#ref-e04), [E05](REFS.md#ref-e05) | [Phase 4](OUTLINE.md#phase-4) · [Phase 5](OUTLINE.md#phase-5) |
+| [SPEC-04](REFS.md#ref-spec-04) | [T01](REFS.md#ref-t01), [T04](REFS.md#ref-t04), [T05](REFS.md#ref-t05) | [Phase 2](OUTLINE.md#phase-2) |
+| [SPEC-05](REFS.md#ref-spec-05) | [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) | [Phase 2](OUTLINE.md#phase-2) · [Phase 3](OUTLINE.md#phase-3) |
+| [SPEC-06](REFS.md#ref-spec-06) | [S01](REFS.md#ref-s01), [S02](REFS.md#ref-s02), [S05](REFS.md#ref-s05) | [Phase 2](OUTLINE.md#phase-2) |
+| [SPEC-07](REFS.md#ref-spec-07) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) | [Phase 3](OUTLINE.md#phase-3) |
+| [SPEC-08](REFS.md#ref-spec-08) | [B03](REFS.md#ref-b03), [T02](REFS.md#ref-t02), [E03](REFS.md#ref-e03) | [Phase 0](OUTLINE.md#phase-0) · [Phase 2](OUTLINE.md#phase-2) |
+| [SPEC-09](REFS.md#ref-spec-09) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) | [Phase 3](OUTLINE.md#phase-3) · [Phase 6](OUTLINE.md#phase-6) |
 
 ---
 
@@ -197,13 +206,13 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 
 | Use case | Ref IDs |
 |----------|---------|
-| Webhook server | B03 + T02 + SPEC-08 |
-| Cron daily summary | B04 + E04 + E05 + SPEC-03 |
-| Big-ticket confirm | T03 + SPEC-05 + SPEC-07 + SPEC-09 |
-| Topic → partner mapping | T04 + SPEC-04 + SPEC-07 |
-| Log bet to sheet | E02 + S02 + SPEC-04 + SPEC-06 |
-| Live config reload | S03 + E02 + SPEC-02 |
-| Parser validation errors | E02 + SPEC-05 |
+| Webhook server | [B03](REFS.md#ref-b03) + [T02](REFS.md#ref-t02) + [SPEC-08](REFS.md#ref-spec-08) |
+| Cron daily summary | [B04](REFS.md#ref-b04) + [E04](REFS.md#ref-e04) + [E05](REFS.md#ref-e05) + [SPEC-03](REFS.md#ref-spec-03) |
+| Big-ticket confirm | [T03](REFS.md#ref-t03) + [SPEC-05](REFS.md#ref-spec-05) + [SPEC-07](REFS.md#ref-spec-07) + [SPEC-09](REFS.md#ref-spec-09) |
+| Topic → partner mapping | [T04](REFS.md#ref-t04) + [SPEC-04](REFS.md#ref-spec-04) + [SPEC-07](REFS.md#ref-spec-07) |
+| Log bet to sheet | [E02](REFS.md#ref-e02) + [S02](REFS.md#ref-s02) + [SPEC-04](REFS.md#ref-spec-04) + [SPEC-06](REFS.md#ref-spec-06) |
+| Live config reload | [S03](REFS.md#ref-s03) + [E02](REFS.md#ref-e02) + [SPEC-02](REFS.md#ref-spec-02) |
+| Parser validation errors | [E02](REFS.md#ref-e02) + [SPEC-05](REFS.md#ref-spec-05) |
 
 ---
 
@@ -211,9 +220,9 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 
 | Prefix | IDs |
 |--------|-----|
-| Bun | B01 · B02 · B03 · B04 · B05 · B06 · B07 · B08 |
-| Effect | E01 · E02 · E03 · E04 · E05 |
-| grammY/Telegram | T01 · T02 · T03 · T04 · T05 |
-| Google Sheets | S01 · S02 · S03 · S04 · S05 |
-| Spec sections | SPEC-01 … SPEC-09 |
-| Documents | DOC-01 … DOC-04 |
+| Bun | [B01](REFS.md#ref-b01) · [B02](REFS.md#ref-b02) · [B03](REFS.md#ref-b03) · [B04](REFS.md#ref-b04) · [B05](REFS.md#ref-b05) · [B06](REFS.md#ref-b06) · [B07](REFS.md#ref-b07) · [B08](REFS.md#ref-b08) |
+| Effect | [E01](REFS.md#ref-e01) · [E02](REFS.md#ref-e02) · [E03](REFS.md#ref-e03) · [E04](REFS.md#ref-e04) · [E05](REFS.md#ref-e05) |
+| grammY/Telegram | [T01](REFS.md#ref-t01) · [T02](REFS.md#ref-t02) · [T03](REFS.md#ref-t03) · [T04](REFS.md#ref-t04) · [T05](REFS.md#ref-t05) |
+| Google Sheets | [S01](REFS.md#ref-s01) · [S02](REFS.md#ref-s02) · [S03](REFS.md#ref-s03) · [S04](REFS.md#ref-s04) · [S05](REFS.md#ref-s05) |
+| Spec sections | [SPEC-01](REFS.md#ref-spec-01) … [SPEC-09](REFS.md#ref-spec-09) |
+| Documents | [DOC-01](REFS.md#ref-doc-01) · [DOC-02](REFS.md#ref-doc-02) · [DOC-03](REFS.md#ref-doc-03) · [DOC-04](REFS.md#ref-doc-04) |
