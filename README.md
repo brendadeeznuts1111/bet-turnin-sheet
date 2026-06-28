@@ -49,7 +49,7 @@ All bets, payments, and audit events append to **Google Sheets**. Sheet formulas
 /logbet 2026-06-20 "mulch account" 100 5750 L
 ```
 
-When `risk` exceeds `big_ticket_threshold` (default **$5,000**), the bot shows an inline **Confirm / Cancel** keyboard before writing to the sheet. See the [big-ticket flow in the spec demo](spec.html#mockup).
+When `risk` exceeds `big_ticket_threshold` (default **$5,000**), the bot shows an inline **Confirm / Cancel** keyboard before writing to the sheet. v2.7 adds persisted Risk sign-off columns ([SPEC-10](REFS.md#ref-spec-10)). See the [big-ticket flow in the spec demo](spec.html#mockup).
 
 ---
 
@@ -196,6 +196,11 @@ Extended commands and full behavior matrix: [SPEC-04](REFS.md#ref-spec-04) in [s
   "admin_user_ids": [123456789, 987654321],
   "rate_limit": { "commands_per_minute": 10, "burst_size": 3 },
   "big_ticket_threshold": 5000,
+  "approval_thresholds": {
+    "risk_bet_usd": 5000,
+    "finance_payment_usd": 1000,
+    "strict_mode": false
+  },
   "scheduled_jobs": {
     "timezone": "America/Los_Angeles",
     "daily_summary": { "cron": "0 9 * * *", "enabled": true },
@@ -218,13 +223,13 @@ Field-by-field reference: [SPEC-02](REFS.md#ref-spec-02) · [spec.html#hub-confi
 | **Config** | Live bot configuration | [SPEC-02](REFS.md#ref-spec-02) · [S03](REFS.md#ref-s03) |
 | **Approvals** | Sign-off audit trail (v2.7) | [SPEC-10](REFS.md#ref-spec-10) · [S02](REFS.md#ref-s02) |
 
-BetLog columns (A–M):
+BetLog columns (A–P; N–P are v2.7 Risk sign-off):
 
 ```
-Timestamp | Partner | Thread_ID | User_ID | Date | Event | Odds | Risk | W/L | Result | Running_Total | Notes | Admin_Override
+Timestamp | Partner | Thread_ID | User_ID | Date | Event | Odds | Risk | W/L | Result | Running_Total | Notes | Admin_Override | Risk_Signoff_By | Risk_Signoff_At | Risk_Signoff_Note
 ```
 
-Column contracts: [SPEC-06](REFS.md#ref-spec-06) · [spec.html#sheet-contracts](spec.html#sheet-contracts).
+Column contracts: [SPEC-06](REFS.md#ref-spec-06) · [spec.html#sheet-contracts](spec.html#sheet-contracts) · Sign-offs: [SPEC-10](REFS.md#ref-spec-10)
 
 ---
 

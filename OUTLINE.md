@@ -141,7 +141,7 @@ Official docs for Bun primitives. Registry: [REFS.md](REFS.md#bun-b01-b08).
 |--------|-----|---------------|------------------|--------------|
 | [T01](REFS.md#ref-t01) | grammY | [Guide](REFS.md#ref-t01) | `src/bot.ts` command routing | [SPEC-04](REFS.md#ref-spec-04) |
 | [T02](REFS.md#ref-t02) | Webhooks | [Deployment types](REFS.md#ref-t02) | `Bun.serve` [B03](REFS.md#ref-b03) webhook handler | [SPEC-08](REFS.md#ref-spec-08) |
-| [T03](REFS.md#ref-t03) | Inline keyboards | [Keyboard plugin](REFS.md#ref-t03) | Big-ticket confirm flow | [SPEC-05](REFS.md#ref-spec-05), [SPEC-07](REFS.md#ref-spec-07), [SPEC-09](REFS.md#ref-spec-09) |
+| [T03](REFS.md#ref-t03) | Inline keyboards | [Keyboard plugin](REFS.md#ref-t03) | Big-ticket confirm flow | [SPEC-05](REFS.md#ref-spec-05), [SPEC-07](REFS.md#ref-spec-07), [SPEC-09](REFS.md#ref-spec-09), [SPEC-10](REFS.md#ref-spec-10) |
 | [T04](REFS.md#ref-t04) | Forum topics | [Bot API — forum topics](REFS.md#ref-t04) | Strict `message_thread_id` mapping | [SPEC-04](REFS.md#ref-spec-04), [SPEC-07](REFS.md#ref-spec-07) |
 | [T05](REFS.md#ref-t05) | Bot API | [Telegram Bot API](REFS.md#ref-t05) | Updates, callbacks | [SPEC-04](REFS.md#ref-spec-04) |
 
@@ -309,7 +309,7 @@ Full table: [spec.html#hub-config](spec.html#hub-config) · [SPEC-02](REFS.md#re
 | Partners | `partners[].key`, `.thread_id`, `.display_name`, `.is_active`, `.settle_threshold` |
 | Access | `admin_user_ids[]` |
 | Rate limit | `rate_limit.commands_per_minute`, `rate_limit.burst_size` |
-| Safety | `big_ticket_threshold` |
+| Safety | `big_ticket_threshold`, `approval_thresholds` |
 | Cron | `scheduled_jobs.timezone`, `scheduled_jobs.daily_summary.*`, `scheduled_jobs.weekly_report.*` |
 
 ---
@@ -325,6 +325,7 @@ Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#re
 **Written to AuditLog**
 
 - Big-ticket confirm/cancel · `/settle` in General · `--force` overrides · successful bet/payment writes
+- Approval granted/rejected (v2.7 · [SPEC-10](REFS.md#ref-spec-10))
 
 ---
 
@@ -372,7 +373,7 @@ Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#re
 
 ### Phase 3 — Big-ticket keyboard
 
-**Ref IDs:** [SPEC-05](REFS.md#ref-spec-05) · [SPEC-07](REFS.md#ref-spec-07) · [SPEC-09](REFS.md#ref-spec-09) · [T03](REFS.md#ref-t03)
+**Ref IDs:** [SPEC-05](REFS.md#ref-spec-05) · [SPEC-07](REFS.md#ref-spec-07) · [SPEC-09](REFS.md#ref-spec-09) · [T03](REFS.md#ref-t03) · evolves to [SPEC-10](REFS.md#ref-spec-10) in Phase 7
 
 **Deliverables:** Threshold check · pending bet store · `confirm_bet` / `cancel_bet` callbacks
 

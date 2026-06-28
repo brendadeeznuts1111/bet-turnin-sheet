@@ -1017,6 +1017,7 @@
                 <a href="REFS.md#ref-e02" class="ref-tag">E02</a>
                 <a href="REFS.md#ref-t04" class="ref-tag">T04</a>
                 <a href="REFS.md#ref-s02" class="ref-tag">S02</a>
+                <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a>
                 <a href="REFS.md#internal-spec-sections" class="ref-tag spec">SPEC-01–10</a>
             </div>
             <div class="hero-meta">
@@ -1140,6 +1141,16 @@
                         <li><strong>New Interactive Demo Tab</strong> <a href="REFS.md#ref-spec-09" class="ref-tag spec">SPEC-09</a> — Added a <strong>📅 Daily Summary</strong> scenario to the visual snapshot to demonstrate automated output.</li>
                     </ul>
                 </div>
+                <div class="card" style="margin-top:1.25rem;border-color:var(--accent-border)">
+                    <h3 style="margin-top:0">v2.7 preview — Domain approvals <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></h3>
+                    <ul class="changelog-list">
+                        <li><strong>Operational sign-off layer</strong> — Risk, Finance, Compliance, and Operations domains with central <code>Approvals</code> tab.</li>
+                        <li><strong>Sheet columns</strong> — <code>Risk_Signoff_*</code> on BetLog, <code>Finance_Signoff_*</code> on PaymentLog (<a href="#domain-approvals" class="ref-tag spec">SPEC-10</a>).</li>
+                        <li><strong>Approval commands</strong> — <code>/approvals pending</code>, <code>/approve &lt;id&gt;</code>, <code>/reject &lt;id&gt;</code> for admin workflow.</li>
+                        <li><strong>Config</strong> — <code>approval_thresholds</code> with optional <code>strict_mode</code> (<a href="#hub-config" class="ref-tag spec">SPEC-02</a>).</li>
+                    </ul>
+                    <p class="text-muted text-sm">Implementation: <a href="OUTLINE.md#phase-7">OUTLINE Phase 7</a> · Full spec: <a href="#domain-approvals">#domain-approvals</a></p>
+                </div>
                 <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
             </section>
 
@@ -1180,6 +1191,10 @@
                             <tr><td><code>admin_user_ids[]</code></td><td>array</td><td><span class="badge badge-success">Yes</span></td><td>Telegram user IDs for <code>--force</code></td><td>Positive integers</td><td><code>[123456789]</code></td></tr>
                             <tr><td><code>rate_limit.commands_per_minute</code></td><td>integer</td><td><span class="badge badge-info">No</span></td><td>Max commands per user per minute</td><td>1–60</td><td><code>10</code></td></tr>
                             <tr><td><code>rate_limit.burst_size</code></td><td>integer</td><td><span class="badge badge-info">No</span></td><td>Max commands in 5-second burst</td><td>1–10</td><td><code>3</code></td></tr>
+                            <tr><td><code>big_ticket_threshold</code></td><td>float</td><td><span class="badge badge-info">No</span></td><td>Inline keyboard when <code>risk</code> exceeds</td><td>Must be &gt; 0</td><td><code>5000</code></td></tr>
+                            <tr><td><code>approval_thresholds.risk_bet_usd</code></td><td>float</td><td><span class="badge badge-info">No</span></td><td>Risk domain sign-off threshold <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td><td>Must be &gt; 0</td><td><code>5000</code></td></tr>
+                            <tr><td><code>approval_thresholds.finance_payment_usd</code></td><td>float</td><td><span class="badge badge-info">No</span></td><td>Finance domain sign-off threshold</td><td>Must be &gt; 0</td><td><code>1000</code></td></tr>
+                            <tr><td><code>approval_thresholds.strict_mode</code></td><td>boolean</td><td><span class="badge badge-info">No</span></td><td>Block writes until <code>Approvals</code> row approved</td><td><code>true</code> or <code>false</code></td><td><code>false</code></td></tr>
                             <tr><td><code>scheduled_jobs.timezone</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>IANA timezone for cron</td><td>Valid IANA string</td><td><code>"America/Los_Angeles"</code></td></tr>
                             <tr><td><code>scheduled_jobs.daily_summary.cron</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>Cron for daily summary</td><td>Valid cron expression</td><td><code>"0 9 * * *"</code></td></tr>
                             <tr><td><code>scheduled_jobs.daily_summary.enabled</code></td><td>boolean</td><td><span class="badge badge-info">No</span></td><td>Toggle daily summary</td><td><code>true</code> or <code>false</code></td><td><code>true</code></td></tr>
@@ -1300,6 +1315,10 @@ Bun.cron("daily_summary", {
                             <tr><td>Payment</td><td><code>/payment ...</code></td><td>Partner topic</td><td>Auto-mapped</td><td><span class="badge badge-success">Yes</span></td><td>Logs payment (negative = out)</td><td class="table-ref-tags"><a href="REFS.md#ref-s02" class="ref-tag">S02</a></td></tr>
                             <tr><td>List partners</td><td><code>/listpartners</code></td><td>Any topic</td><td>N/A</td><td><span class="badge badge-success">Yes</span></td><td>Returns all active partners</td><td class="table-ref-tags"><a href="REFS.md#ref-s03" class="ref-tag">S03</a></td></tr>
                             <tr><td>Unknown topic</td><td><code>/logbet ...</code></td><td>Thread ID 999 (not in config)</td><td>N/A</td><td><span class="badge badge-danger">No</span></td><td>Rejects: "Unknown topic"</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-05" class="ref-tag spec">SPEC-05</a></td></tr>
+                            <tr><td>Settleup (finance gate)</td><td><code>/settleup</code></td><td>Partner topic</td><td>Auto-mapped</td><td><span class="badge badge-warn">Conditional</span></td><td>Creates approval if amount &gt; finance threshold</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Approvals list</td><td><code>/approvals pending</code></td><td>Admin topic</td><td>N/A</td><td><span class="badge badge-success">Yes</span> (admin)</td><td>Lists open approval requests</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a> <a href="REFS.md#ref-spec-04" class="ref-tag spec">SPEC-04</a></td></tr>
+                            <tr><td>Approve request</td><td><code>/approve &lt;id&gt;</code></td><td>Admin topic</td><td>N/A</td><td><span class="badge badge-success">Yes</span> (admin)</td><td>Sets <code>Approvals</code> status to approved</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Reject request</td><td><code>/reject &lt;id&gt;</code></td><td>Admin topic</td><td>N/A</td><td><span class="badge badge-success">Yes</span> (admin)</td><td>Rejects; logs to AuditLog</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1338,9 +1357,12 @@ Bun.cron("daily_summary", {
                             <tr><td>Rate limit (per min)</td><td>Rolling window Map</td><td>Reject, suggest waiting</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a></td></tr>
                             <tr><td>Burst limit (5 sec)</td><td>Separate rolling window</td><td>Reject</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a></td></tr>
                             <tr><td>Malformed input</td><td>Effect Schema validation</td><td>Structured error card</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-e02" class="ref-tag">E02</a></td></tr>
-                            <tr><td>Big Ticket (&gt;$5K)</td><td><code>risk > 5000</code></td><td>Inline keyboard (Confirm/Cancel)</td><td><span class="badge badge-warn">Confirm only</span></td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-spec-09" class="ref-tag spec">SPEC-09</a></td></tr>
+                            <tr><td>Big Ticket (&gt;$5K)</td><td><code>risk > 5000</code></td><td>Inline keyboard (Confirm/Cancel)</td><td><span class="badge badge-warn">Confirm only</span></td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-spec-05" class="ref-tag spec">SPEC-05</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
                             <tr><td>Cancel Big Ticket</td><td>Callback <code>cancel_bet</code></td><td>Abort, log <code>CANCELLED</code></td><td><span class="badge badge-success">Yes</span></td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-s02" class="ref-tag">S02</a></td></tr>
-                            <tr><td>Confirm Big Ticket</td><td>Callback <code>confirm_bet</code></td><td>Proceed, log <code>CONFIRM_CLICKED</code></td><td><span class="badge badge-success">Yes</span></td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-s02" class="ref-tag">S02</a></td></tr>
+                            <tr><td>Confirm Big Ticket</td><td>Callback <code>confirm_bet</code></td><td>Proceed; v2.7 writes <code>Risk_Signoff_*</code></td><td><span class="badge badge-success">Yes</span></td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-s02" class="ref-tag">S02</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Approval pending (strict)</td><td>Any gated action</td><td><code>strict_mode === true</code></td><td>Reject until approved</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Finance threshold</td><td><code>/settleup</code> or large <code>/payment</code></td><td>Amount &gt; <code>finance_payment_usd</code></td><td>Pending approval row</td><td><span class="badge badge-warn">On approve</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Expired approval</td><td>Stale <code>Approvals</code> row</td><td>Status <code>expired</code></td><td>Reject; prompt re-request</td><td><span class="badge badge-success">Yes</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
                             <tr><td>Partner not found</td><td><code>find()</code> returns undefined</td><td>Reject: "Unknown topic"</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a> <a href="REFS.md#ref-t04" class="ref-tag">T04</a></td></tr>
                             <tr><td>Partner inactive</td><td><code>is_active === false</code></td><td>Reject: "Deactivated"</td><td><span class="badge badge-danger">No</span></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a></td></tr>
                         </tbody>
@@ -1355,7 +1377,7 @@ Bun.cron("daily_summary", {
                     <div class="section-icon">📊</div>
                     <div class="section-title-group">
                         <h2>Google Sheets Column Contracts<a href="REFS.md#ref-spec-06" class="ref-pill">SPEC-06</a></h2>
-                        <p>Three specific tabs. The <code>Config</code> tab holds live config. Formulas auto-applied by Sheets.</p>
+                        <p>Four core tabs plus <code>Approvals</code> (v2.7). The <code>Config</code> tab holds live config. Formulas auto-applied by Sheets.</p>
                     </div>
                 </div>
                 <div class="ref-bar">
@@ -1558,8 +1580,13 @@ Bun.cron("daily_summary", {
                         </div>
                         <div class="rule-item">
                             <div class="rule-icon">💰</div>
-                            <div class="rule-content"><strong>Big Ticket</strong><br>Any <code>risk &gt; 5000</code> triggers inline keyboard; must be explicitly confirmed.
-                                <div class="rule-refs"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-spec-09" class="ref-tag spec">SPEC-09</a> <a href="REFS.md#ref-spec-05" class="ref-tag spec">SPEC-05</a></div></div>
+                            <div class="rule-content"><strong>Big Ticket</strong><br>Any <code>risk &gt; big_ticket_threshold</code> triggers inline keyboard; must be explicitly confirmed. v2.7 persists <code>Risk_Signoff_*</code> on approve.
+                                <div class="rule-refs"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-spec-05" class="ref-tag spec">SPEC-05</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></div></div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-icon">✅</div>
+                            <div class="rule-content"><strong>Domain Approvals (v2.7)</strong><br>High-stakes actions may require Risk, Finance, Compliance, or Operations sign-off via <code>Approvals</code> tab.
+                                <div class="rule-refs"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a> <a href="#domain-approvals" class="ref-tag spec">#domain-approvals</a></div></div>
                         </div>
                         <div class="rule-item">
                             <div class="rule-icon">⏱️</div>
@@ -1596,6 +1623,7 @@ Bun.cron("daily_summary", {
                     <a href="REFS.md#ref-t03" class="ref-tag">T03</a>
                     <a href="REFS.md#ref-s02" class="ref-tag">S02</a>
                     <a href="REFS.md#ref-b04" class="ref-tag">B04</a>
+                    <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a>
                     <a href="REFS.md#key-pairings" class="ref-bar-more">Key pairings →</a>
                 </div>
                 <div class="card-grid cols-2">
@@ -1656,6 +1684,8 @@ flowchart TD
         LARGECHECK -->|No| CONFIRM
         CONFIRM --> AUDIT["Audit Logger"]
         CONFIRM --> RATE["Rate Limiter<br>10/min, 3 burst"]
+        CONFIRM -->|v2.7| APPROVALS["Approvals Gate<br>Risk / Finance / Ops"]
+        APPROVALS -->|approved| RATE
     end
 
     subgraph STORAGE["LAYER 4: Google Sheets"]
@@ -1666,6 +1696,7 @@ flowchart TD
         WRITE --> S2["PaymentLog"]
         WRITE --> S3["AuditLog"]
         WRITE --> S4["Config"]
+        WRITE --> S5["Approvals"]
         SHEET_API --> CALC["Auto-Calc Formulas"]
         CALC --> FETCH["Fetch Updated Totals"]
         FETCH --> REPLY["Typed Confirmation Reply"]
@@ -1697,7 +1728,7 @@ flowchart TD
                             <span class="pre-lang">JSON</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
-                        <pre>// Refs: SPEC-02 · E02 · S03 · B06
+                        <pre>// Refs: SPEC-02 · SPEC-10 · E02 · S03 · B06
 {
   "hub": {
     "chat_id": -1001234567890,
@@ -1712,6 +1743,11 @@ flowchart TD
   "admin_user_ids": [123456789, 987654321],
   "rate_limit": { "commands_per_minute": 10, "burst_size": 3 },
   "big_ticket_threshold": 5000,
+  "approval_thresholds": {
+    "risk_bet_usd": 5000,
+    "finance_payment_usd": 1000,
+    "strict_mode": false
+  },
   "scheduled_jobs": {
     "timezone": "America/Los_Angeles",
     "daily_summary": { "cron": "0 9 * * *", "enabled": true },

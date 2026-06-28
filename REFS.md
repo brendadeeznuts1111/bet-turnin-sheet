@@ -140,7 +140,7 @@ Navigate the spec via sticky nav / sidebar **SPEC-XX** labels, or jump from any 
 |--------|-------|---------------|-------------|--------------|
 | [T01](#ref-t01) | grammY guide | [grammy.dev/guide](https://grammy.dev/guide/) | Bot setup, command routing | [SPEC-04](REFS.md#ref-spec-04) |
 | [T02](#ref-t02) | Webhooks | [Deployment — Webhooks](https://grammy.dev/guide/deployment-types.html) | Webhook via B03 | [SPEC-08](REFS.md#ref-spec-08) |
-| [T03](#ref-t03) | Inline keyboards | [Keyboard plugin](https://grammy.dev/plugins/keyboard.html) | Big-ticket Confirm/Cancel | [SPEC-05](REFS.md#ref-spec-05), [SPEC-07](REFS.md#ref-spec-07), [SPEC-09](REFS.md#ref-spec-09) |
+| [T03](#ref-t03) | Inline keyboards | [Keyboard plugin](https://grammy.dev/plugins/keyboard.html) | Big-ticket Confirm/Cancel | [SPEC-05](REFS.md#ref-spec-05), [SPEC-07](REFS.md#ref-spec-07), [SPEC-09](REFS.md#ref-spec-09), [SPEC-10](REFS.md#ref-spec-10) |
 | [T04](#ref-t04) | Forum topics | [Bot API — forum topics](https://core.telegram.org/bots/api#forum-topic-edited) | `message_thread_id` mapping | [SPEC-04](REFS.md#ref-spec-04), [SPEC-07](REFS.md#ref-spec-07) |
 | [T05](#ref-t05) | Bot API | [core.telegram.org/bots/api](https://core.telegram.org/bots/api) | Updates, callbacks | [SPEC-04](REFS.md#ref-spec-04) |
 
