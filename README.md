@@ -61,6 +61,7 @@ When `risk` exceeds `big_ticket_threshold` (default **$5,000**), the bot shows a
 4. **Human-in-the-loop for big tickets** — inline keyboard [T03](REFS.md#ref-t03) on high-risk bets.
 5. **Live config** — Config tab [S03](REFS.md#ref-s03) reloads every 5 seconds.
 6. **Audit trail** — confirm, cancel, override, and settle actions logged to AuditLog.
+7. **Domain approvals (v2.7)** — Risk, Finance, Compliance, and Operations sign-offs for high-stakes actions ([SPEC-10](REFS.md#ref-spec-10)).
 
 Full rules: [SPEC-07](REFS.md#ref-spec-07) in [spec.html#rules-summary](spec.html#rules-summary).
 
@@ -139,10 +140,10 @@ flowchart TD
 | E | E01–E05 | Effect | [REFS.md#effect-e01-e05](REFS.md#effect-e01-e05) |
 | T | T01–T05 | grammY / Telegram | [REFS.md#grammy-telegram-t01-t05](REFS.md#grammy-telegram-t01-t05) |
 | S | S01–S05 | Google Sheets | [REFS.md#google-sheets-s01-s05](REFS.md#google-sheets-s01-s05) |
-| SPEC | SPEC-01–SPEC-09 | [spec.html](spec.html) sections | [REFS.md#internal-spec-sections](REFS.md#internal-spec-sections) |
+| SPEC | SPEC-01–SPEC-10 | [spec.html](spec.html) sections | [REFS.md#internal-spec-sections](REFS.md#internal-spec-sections) |
 | DOC | DOC-01–DOC-04 | Project markdown / spec files | [REFS.md#project-documents](REFS.md#project-documents) |
 
-Quick links: [Bun (B01–B08)](REFS.md#bun-b01-b08) · [Effect (E01–E05)](REFS.md#effect-e01-e05) · [grammY/Telegram (T01–T05)](REFS.md#grammy-telegram-t01-t05) · [Sheets (S01–S05)](REFS.md#google-sheets-s01-s05) · [Spec (SPEC-01–09)](REFS.md#internal-spec-sections) · [Matrix](REFS.md#cross-reference-matrix)
+Quick links: [Bun (B01–B08)](REFS.md#bun-b01-b08) · [Effect (E01–E05)](REFS.md#effect-e01-e05) · [grammY/Telegram (T01–T05)](REFS.md#grammy-telegram-t01-t05) · [Sheets (S01–S05)](REFS.md#google-sheets-s01-s05) · [Spec (SPEC-01–10)](REFS.md#internal-spec-sections) · [Approvals (SPEC-10)](REFS.md#ref-spec-10) · [Matrix](REFS.md#cross-reference-matrix)
 
 Field-by-field config: [SPEC-02](REFS.md#ref-spec-02) · Command matrix: [SPEC-04](REFS.md#ref-spec-04) · Key pairings: [REFS.md#key-pairings](REFS.md#key-pairings) · Category tables: [OUTLINE.md](OUTLINE.md#bun-api-references)
 
@@ -215,6 +216,7 @@ Field-by-field reference: [SPEC-02](REFS.md#ref-spec-02) · [spec.html#hub-confi
 | **PaymentLog** | Settlement payments | [SPEC-06](REFS.md#ref-spec-06) · [S02](REFS.md#ref-s02) |
 | **AuditLog** | Immutable action log (confirm, cancel, overrides) | [SPEC-06](REFS.md#ref-spec-06) · [S02](REFS.md#ref-s02) |
 | **Config** | Live bot configuration | [SPEC-02](REFS.md#ref-spec-02) · [S03](REFS.md#ref-s03) |
+| **Approvals** | Sign-off audit trail (v2.7) | [SPEC-10](REFS.md#ref-spec-10) · [S02](REFS.md#ref-s02) |
 
 BetLog columns (A–M):
 
@@ -274,7 +276,7 @@ bun run audit:refs:offline      # drift check without network
 bun run audit:refs --no-cache   # bypass 24h URL cache
 ```
 
-**Governance:** No GitHub Actions — run audit locally, then record **domain signoffs** per external group (B/E/T/S) in [REFS.md#domain-signoffs](REFS.md#domain-signoffs).
+**Governance:** No GitHub Actions — run audit locally, then record **registry domain signoffs** (B/E/T/S) in [REFS.md#registry-domain-signoffs](REFS.md#registry-domain-signoffs). Operational approvals: [SPEC-10](REFS.md#ref-spec-10).
 
 ```bash
 open spec.html   # macOS — open in default browser
@@ -293,6 +295,7 @@ open spec.html   # macOS — open in default browser
 | **4** | Daily summary cron | Pending | [Phase 4](OUTLINE.md#phase-4) · [SPEC-03](REFS.md#ref-spec-03) |
 | **5** | Integrity check cron | Pending | [Phase 5](OUTLINE.md#phase-5) · [SPEC-03](REFS.md#ref-spec-03) |
 | **6** | Parlay, `/editbet`, leaderboard, weekly PDF | Pending | [Phase 6](OUTLINE.md#phase-6) · [SPEC-09](REFS.md#ref-spec-09) |
+| **7** | Domain approval layer (v2.7) | Pending | [Phase 7](OUTLINE.md#phase-7) · [SPEC-10](REFS.md#ref-spec-10) |
 
 Per-phase acceptance criteria: [OUTLINE.md#implementation-phases](OUTLINE.md#implementation-phases).
 

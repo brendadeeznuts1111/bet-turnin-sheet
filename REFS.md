@@ -17,14 +17,14 @@ Canonical **Ref IDs** for this project. Cite these in specs, code comments, comm
 | Overview | [README.md](README.md) (DOC-01) | [REFS.md](REFS.md#prefixes) | [spec.html](spec.html) |
 | Architecture & phases | [OUTLINE.md](OUTLINE.md) (DOC-02) | [Cross-ref matrix](#cross-reference-matrix) | [SPEC-08](REFS.md#ref-spec-08) |
 | External APIs | [REFS.md#external-references](#external-references) | [refs.json](refs.json) | [OUTLINE API tables](OUTLINE.md#bun-api-references) |
-| Audit & signoff | [Domain signoffs](#domain-signoffs) | [ref-audit.json](ref-audit.json) | [README — Documentation](README.md#documentation) |
+| Audit & signoff | [Registry domain signoffs](#registry-domain-signoffs) · [Operational approvals](#operational-domain-approvals) | [ref-audit.json](ref-audit.json) | [SPEC-10](REFS.md#ref-spec-10) |
 
 ---
 
 > **Canonical data:** [refs.json](refs.json) · **Schema:** [refs.schema.json](refs.schema.json)
 > **Run:** `bun run audit:refs --fix` · **Gate:** `bun run audit:refs --strict` · **Offline:** `bun run audit:refs:offline` · **Fresh URLs:** `bun run audit:refs --no-cache`
-> **Governance:** local audit + [domain signoffs](#domain-signoffs) (no GitHub Actions)
-> **Last audit:** 2026-06-28 · **Status:** pass · **Refs:** 36 · [JSON](ref-audit.json) · [Report](ref-audit.md)
+> **Governance:** local audit + [registry domain signoffs](#registry-domain-signoffs) (no GitHub Actions)
+> **Last audit:** 2026-06-28 · **Status:** pass · **Refs:** 37 · [JSON](ref-audit.json) · [Report](ref-audit.md)
 
 | Check | Description |
 |-------|-------------|
@@ -36,9 +36,11 @@ Canonical **Ref IDs** for this project. Cite these in specs, code comments, comm
 | Pairings | All pairing refs resolve |
 | Cross-ref matrix | `crossRefMatrix` specs and external refs valid |
 
-## Domain signoffs
+## Registry domain signoffs (docs audit)
 
-External refs are grouped by **domain**. After `bun run audit:refs --strict` passes, record a signoff per domain (not per ref). Internal groups (SPEC, DOC) follow doc review only.
+External **documentation** refs are grouped by URL domain. After `bun run audit:refs --strict` passes, record a signoff per registry group (not per ref). Internal groups (SPEC, DOC) follow doc review only.
+
+> **Not the same as** [operational domain approvals](#operational-domain-approvals) (Risk/Finance/Compliance/Operations in [SPEC-10](REFS.md#ref-spec-10)).
 
 | Group | Domain | Refs | Signed off | Notes |
 |-------|--------|------|------------|-------|
@@ -48,6 +50,21 @@ External refs are grouped by **domain**. After `bun run audit:refs --strict` pas
 | [Google Sheets (S01–S05)](#google-sheets-s01-s05) | `developers.google.com` | S01–S05 | — | |
 
 **Workflow:** audit → strict gate → update signoff date in this table → commit `refs.json` + `ref-audit.json` with `--fix`.
+
+## Operational domain approvals (v2.7)
+
+High-stakes **runtime** sign-offs for bets, settlements, config, and admin actions. Full spec: [SPEC-10](REFS.md#ref-spec-10) · [spec.html#domain-approvals](spec.html#domain-approvals) · Phase [7](OUTLINE.md#phase-7).
+
+| Domain | What needs sign-off | Trigger | Sheet / flow |
+|--------|---------------------|---------|--------------|
+| **Risk** | Large bets / high exposure | `Risk > big_ticket_threshold` | `BetLog` `Risk_Signoff_*` · `/logbet` |
+| **Finance** | Settlements / payouts | `/settleup` or large `/payment` | `PaymentLog` `Finance_Signoff_*` |
+| **Compliance** | Partner onboarding / config | New partner or whitelist change | `Approvals` · `Config` |
+| **Operations** | Manual edits / overrides | `/editbet`, `--force` | `Approvals` · `AuditLog` |
+
+**Commands:** `/approvals pending` · `/approve <id>` · `/reject <id>`
+
+**Central trail:** `Approvals` tab (see [SPEC-10](REFS.md#ref-spec-10)). Pairing: [domain-approval-flow](#key-pairings).
 
 ---
 
@@ -81,7 +98,7 @@ Navigate the spec via sticky nav / sidebar **SPEC-XX** labels, or jump from any 
 | **E** | E01–E05 | Effect |
 | **T** | T01–T05 | grammY / Telegram |
 | **S** | S01–S05 | Google Sheets API |
-| **SPEC** | SPEC-01–SPEC-09 | Internal [spec.html](spec.html) sections |
+| **SPEC** | SPEC-01–SPEC-10 | Internal [spec.html](spec.html) sections |
 | **DOC** | DOC-01–DOC-04 | Project documents |
 
 ---
@@ -147,7 +164,7 @@ Navigate the spec via sticky nav / sidebar **SPEC-XX** labels, or jump from any 
 
 ---
 
-## Internal spec sections (SPEC-01–SPEC-09)
+## Internal spec sections (SPEC-01–SPEC-10)
 
 <a id="internal-spec-sections"></a>
 
@@ -164,9 +181,10 @@ Sections in [spec.html](spec.html). Use when citing project requirements (not ex
 | [SPEC-07](#ref-spec-07) | Rules summary | [#rules-summary](spec.html#rules-summary) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04), [B04](REFS.md#ref-b04) |
 | [SPEC-08](#ref-spec-08) | Architecture | [#architecture](spec.html#architecture) | [B03](REFS.md#ref-b03), [B04](REFS.md#ref-b04), [T02](REFS.md#ref-t02), [E03](REFS.md#ref-e03) |
 | [SPEC-09](#ref-spec-09) | Interactive demo | [#mockup](spec.html#mockup) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) |
+| [SPEC-10](#ref-spec-10) | Domain approvals | [#domain-approvals](spec.html#domain-approvals) | [S02](REFS.md#ref-s02), [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) |
 
 <a id="ref-spec-01"></a><a id="ref-spec-02"></a><a id="ref-spec-03"></a><a id="ref-spec-04"></a><a id="ref-spec-05"></a>
-<a id="ref-spec-06"></a><a id="ref-spec-07"></a><a id="ref-spec-08"></a><a id="ref-spec-09"></a>
+<a id="ref-spec-06"></a><a id="ref-spec-07"></a><a id="ref-spec-08"></a><a id="ref-spec-09"></a><a id="ref-spec-10"></a>
 
 ---
 
@@ -199,6 +217,7 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 | [SPEC-07](REFS.md#ref-spec-07) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) | [Phase 3](OUTLINE.md#phase-3) |
 | [SPEC-08](REFS.md#ref-spec-08) | [B03](REFS.md#ref-b03), [T02](REFS.md#ref-t02), [E03](REFS.md#ref-e03) | [Phase 0](OUTLINE.md#phase-0) · [Phase 2](OUTLINE.md#phase-2) |
 | [SPEC-09](REFS.md#ref-spec-09) | [T03](REFS.md#ref-t03), [T04](REFS.md#ref-t04) | [Phase 3](OUTLINE.md#phase-3) · [Phase 6](OUTLINE.md#phase-6) |
+| [SPEC-10](REFS.md#ref-spec-10) | [S02](REFS.md#ref-s02), [E02](REFS.md#ref-e02), [T03](REFS.md#ref-t03) | [Phase 7](OUTLINE.md#phase-7) |
 
 ---
 
@@ -213,6 +232,7 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 | Log bet to sheet | [E02](REFS.md#ref-e02) + [S02](REFS.md#ref-s02) + [SPEC-04](REFS.md#ref-spec-04) + [SPEC-06](REFS.md#ref-spec-06) |
 | Live config reload | [S03](REFS.md#ref-s03) + [E02](REFS.md#ref-e02) + [SPEC-02](REFS.md#ref-spec-02) |
 | Parser validation errors | [E02](REFS.md#ref-e02) + [SPEC-05](REFS.md#ref-spec-05) |
+| Domain-specific approvals | [SPEC-10](REFS.md#ref-spec-10) + [SPEC-06](REFS.md#ref-spec-06) + [SPEC-04](REFS.md#ref-spec-04) + [S02](REFS.md#ref-s02) + [E02](REFS.md#ref-e02) + [T03](REFS.md#ref-t03) |
 
 ---
 
@@ -224,5 +244,5 @@ Quick lookup: spec section → external refs → implementation phase ([OUTLINE]
 | Effect | [E01](REFS.md#ref-e01) · [E02](REFS.md#ref-e02) · [E03](REFS.md#ref-e03) · [E04](REFS.md#ref-e04) · [E05](REFS.md#ref-e05) |
 | grammY/Telegram | [T01](REFS.md#ref-t01) · [T02](REFS.md#ref-t02) · [T03](REFS.md#ref-t03) · [T04](REFS.md#ref-t04) · [T05](REFS.md#ref-t05) |
 | Google Sheets | [S01](REFS.md#ref-s01) · [S02](REFS.md#ref-s02) · [S03](REFS.md#ref-s03) · [S04](REFS.md#ref-s04) · [S05](REFS.md#ref-s05) |
-| Spec sections | [SPEC-01](REFS.md#ref-spec-01) … [SPEC-09](REFS.md#ref-spec-09) |
+| Spec sections | [SPEC-01](REFS.md#ref-spec-01) … [SPEC-10](REFS.md#ref-spec-10) |
 | Documents | [DOC-01](REFS.md#ref-doc-01) · [DOC-02](REFS.md#ref-doc-02) · [DOC-03](REFS.md#ref-doc-03) · [DOC-04](REFS.md#ref-doc-04) |

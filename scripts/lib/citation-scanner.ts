@@ -37,7 +37,7 @@ function extractRefIds(text: string): string[] {
   }
 
   for (const m of text.matchAll(
-    /\b(B0[1-8]|E0[1-5]|T0[1-5]|S0[1-5]|SPEC-0[1-9]|DOC-0[1-4])\b/g
+    /\b(B0[1-8]|E0[1-5]|T0[1-5]|S0[1-5]|SPEC-(0[1-9]|10)|DOC-0[1-4])\b/g
   )) {
     found.add(m[1]!);
   }

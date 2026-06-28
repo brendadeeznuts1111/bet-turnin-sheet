@@ -1017,7 +1017,7 @@
                 <a href="REFS.md#ref-e02" class="ref-tag">E02</a>
                 <a href="REFS.md#ref-t04" class="ref-tag">T04</a>
                 <a href="REFS.md#ref-s02" class="ref-tag">S02</a>
-                <a href="REFS.md#internal-spec-sections" class="ref-tag spec">SPEC-01–09</a>
+                <a href="REFS.md#internal-spec-sections" class="ref-tag spec">SPEC-01–10</a>
             </div>
             <div class="hero-meta">
                 <div class="hero-meta-item">⚡ <a href="REFS.md#ref-b02" style="color:inherit;text-decoration:none;">B02 TypeScript</a></div>
@@ -1045,6 +1045,7 @@
                 <a href="#sheet-contracts" class="nav-link"><span class="nav-ref">SPEC-06</span>Sheets</a>
                 <a href="#rules-summary" class="nav-link"><span class="nav-ref">SPEC-07</span>Rules</a>
                 <a href="#architecture" class="nav-link"><span class="nav-ref">SPEC-08</span>Arch</a>
+                <a href="#domain-approvals" class="nav-link"><span class="nav-ref">SPEC-10</span>Approvals</a>
                 <a href="#mockup" class="nav-link"><span class="nav-ref">SPEC-09</span>Demo</a>
                 <a href="REFS.md" class="nav-link" style="color:var(--accent)"><span class="nav-ref">DOC-04</span>REFS</a>
             </div>
@@ -1096,7 +1097,7 @@
                 <li><a href="REFS.md#ref-s04" class="sidebar-link ref-nav" data-ref="S04"><span class="num">S04</span> Service account</a></li>
                 <li><a href="REFS.md#ref-s05" class="sidebar-link ref-nav" data-ref="S05"><span class="num">S05</span> values.append</a></li>
             </ul>
-            <div class="sidebar-title"><a href="REFS.md#internal-spec-sections" title="SPEC-01–09">Spec sections</a></div>
+            <div class="sidebar-title"><a href="REFS.md#internal-spec-sections" title="SPEC-01–10">Spec sections</a></div>
             <ul class="sidebar-list" style="margin-bottom:1.25rem">
                 <li><a href="#changelog" class="sidebar-link"><span class="num">SPEC-01</span> Changelog</a></li>
                 <li><a href="#hub-config" class="sidebar-link"><span class="num">SPEC-02</span> Config</a></li>
@@ -1106,6 +1107,7 @@
                 <li><a href="#sheet-contracts" class="sidebar-link"><span class="num">SPEC-06</span> Sheets</a></li>
                 <li><a href="#rules-summary" class="sidebar-link"><span class="num">SPEC-07</span> Rules</a></li>
                 <li><a href="#architecture" class="sidebar-link"><span class="num">SPEC-08</span> Architecture</a></li>
+                <li><a href="#domain-approvals" class="sidebar-link"><span class="num">SPEC-10</span> Approvals</a></li>
                 <li><a href="#mockup" class="sidebar-link"><span class="num">SPEC-09</span> Demo</a></li>
             </ul>
         </aside>
@@ -1389,6 +1391,9 @@ Bun.cron("daily_summary", {
                             <tr><td>K</td><td><code>Running_Total</code></td><td>float</td><td><span class="badge badge-info">Auto</span></td><td><code>=SUM(J$2:J2)</code></td><td>Running total for partner</td></tr>
                             <tr><td>L</td><td><code>Notes</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>User input</td><td>Max 500 chars</td></tr>
                             <tr><td>M</td><td><code>Admin_Override</code></td><td>boolean</td><td><span class="badge badge-info">No</span></td><td>Bot injects</td><td><code>TRUE</code> only for <code>--force</code></td></tr>
+                            <tr><td>N</td><td><code>Risk_Signoff_By</code></td><td>string</td><td><span class="badge badge-warn">Conditional</span></td><td>Bot injects</td><td>User ID when <code>Risk &gt; threshold</code> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>O</td><td><code>Risk_Signoff_At</code></td><td>datetime</td><td><span class="badge badge-warn">Conditional</span></td><td>Bot injects</td><td>Approval timestamp</td></tr>
+                            <tr><td>P</td><td><code>Risk_Signoff_Note</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>Approver</td><td>Optional comment</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1404,6 +1409,9 @@ Bun.cron("daily_summary", {
                             <tr><td>D</td><td><code>Amount</code></td><td>float</td><td><span class="badge badge-success">Yes</span></td><td>Negative = Ash pays partner</td></tr>
                             <tr><td>E</td><td><code>Method</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>venmo</code>, <code>paypal</code>, <code>cashapp</code>, <code>zelle</code>, <code>usdc</code>, <code>wire</code>, <code>cash</code>, <code>other</code></td></tr>
                             <tr><td>F</td><td><code>Description</code></td><td>string</td><td><span class="badge badge-success">Yes</span></td><td>Min 3, max 200 chars</td></tr>
+                            <tr><td>G</td><td><code>Finance_Signoff_By</code></td><td>string</td><td><span class="badge badge-warn">Conditional</span></td><td>When <code>Amount &gt; threshold</code> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>H</td><td><code>Finance_Signoff_At</code></td><td>datetime</td><td><span class="badge badge-warn">Conditional</span></td><td>Approval timestamp</td></tr>
+                            <tr><td>I</td><td><code>Finance_Signoff_Note</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>Optional finance comment</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1423,6 +1431,87 @@ Bun.cron("daily_summary", {
                         </tbody>
                     </table>
                 </div>
+                <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
+            </section>
+
+            <!-- DOMAIN APPROVALS (v2.7 planned) -->
+            <section id="domain-approvals">
+                <div class="section-header">
+                    <div class="section-icon">🔐</div>
+                    <div class="section-title-group">
+                        <h2>Domain-Specific Approvals<a href="REFS.md#ref-spec-10" class="ref-pill">SPEC-10</a></h2>
+                        <p><span class="badge badge-warn">v2.7 planned</span> — Operational sign-off layer for high-stakes bets, settlements, config changes, and admin overrides. Extends v2.6 big-ticket keyboard (<a href="REFS.md#ref-spec-05" class="ref-tag spec">SPEC-05</a>, <a href="REFS.md#ref-t03" class="ref-tag">T03</a>) with persisted approval metadata.</p>
+                    </div>
+                </div>
+                <div class="ref-bar">
+                    <span class="ref-bar-label">This section</span>
+                    <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a>
+                    <span class="ref-bar-label">APIs</span>
+                    <a href="REFS.md#ref-s02" class="ref-tag">S02</a>
+                    <a href="REFS.md#ref-e02" class="ref-tag">E02</a>
+                    <a href="REFS.md#ref-t03" class="ref-tag">T03</a>
+                    <a href="REFS.md#ref-spec-06" class="ref-tag spec">SPEC-06</a>
+                    <a href="REFS.md#ref-spec-04" class="ref-tag spec">SPEC-04</a>
+                    <a href="REFS.md" class="ref-bar-more">REFS.md →</a>
+                </div>
+
+                <h3 class="sub-section-title">Approval domains</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Domain</th><th>What needs sign-off</th><th>Trigger</th><th>Location</th><th>Priority</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Risk</strong></td><td>Large bets / high exposure</td><td><code>Risk &gt; big_ticket_threshold</code></td><td><code>BetLog</code> + <code>/logbet</code></td><td><span class="badge badge-danger">High</span></td></tr>
+                            <tr><td><strong>Finance</strong></td><td>Settlements / payouts</td><td><code>/settleup</code> or large <code>/payment</code></td><td><code>PaymentLog</code></td><td><span class="badge badge-danger">High</span></td></tr>
+                            <tr><td><strong>Compliance</strong></td><td>Partner onboarding / config changes</td><td>New partner or whitelist change</td><td><code>Config</code> + <code>/addpartner</code></td><td><span class="badge badge-warn">Medium</span></td></tr>
+                            <tr><td><strong>Operations</strong></td><td>Manual edits / admin overrides</td><td><code>/editbet</code>, <code>--force</code></td><td><code>AuditLog</code> + <code>Approvals</code></td><td><span class="badge badge-warn">Medium</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="sub-section-title">Workflow integration</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Command / action</th><th>Domain</th><th>Sign-off required?</th><th>Behavior</th><th>Ref IDs</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>/logbet</code> (big ticket)</td><td>Risk</td><td><span class="badge badge-success">Yes</span></td><td>Confirm keyboard; writes <code>Risk_Signoff_*</code> on approve</td><td class="table-ref-tags"><a href="REFS.md#ref-t03" class="ref-tag">T03</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td><code>/settleup</code></td><td>Finance</td><td><span class="badge badge-success">Yes</span></td><td>Approval request before payment deep link</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a> <a href="REFS.md#ref-s02" class="ref-tag">S02</a></td></tr>
+                            <tr><td><code>/editbet</code></td><td>Operations</td><td><span class="badge badge-success">Yes</span> (admin)</td><td>Logs approval in <code>AuditLog</code> + <code>Approvals</code></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td><code>/addpartner</code></td><td>Compliance</td><td><span class="badge badge-success">Yes</span></td><td>Creates pending row in <code>Approvals</code></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td>Config tab edit</td><td>Compliance</td><td><span class="badge badge-warn">Recommended</span></td><td>Manual review + sign-off row</td><td class="table-ref-tags"><a href="REFS.md#ref-s03" class="ref-tag">S03</a> <a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td><code>/approvals pending</code></td><td>All</td><td>—</td><td>Lists open approval requests (admin)</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-04" class="ref-tag spec">SPEC-04</a></td></tr>
+                            <tr><td><code>/approve &lt;id&gt;</code></td><td>All</td><td>—</td><td>Approves request; unblocks downstream action</td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                            <tr><td><code>/reject &lt;id&gt;</code></td><td>All</td><td>—</td><td>Rejects request; logs to <code>AuditLog</code></td><td class="table-ref-tags"><a href="REFS.md#ref-spec-10" class="ref-tag spec">SPEC-10</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="sub-section-title">Approvals tab — central audit trail <a href="REFS.md#ref-s02" class="ref-tag">S02</a></h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Col</th><th>Header</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>A</td><td><code>Timestamp</code></td><td>datetime</td><td><span class="badge badge-success">Yes</span></td><td>Request created</td></tr>
+                            <tr><td>B</td><td><code>Request_Type</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>BET</code>, <code>PAYMENT</code>, <code>CONFIG</code>, <code>PARTNER</code>, <code>EDIT</code></td></tr>
+                            <tr><td>C</td><td><code>Request_ID</code></td><td>string</td><td><span class="badge badge-success">Yes</span></td><td>UUID or monotonic ID</td></tr>
+                            <tr><td>D</td><td><code>Domain</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>risk</code>, <code>finance</code>, <code>compliance</code>, <code>operations</code></td></tr>
+                            <tr><td>E</td><td><code>Requested_By</code></td><td>integer</td><td><span class="badge badge-success">Yes</span></td><td>Telegram user ID</td></tr>
+                            <tr><td>F</td><td><code>Approved_By</code></td><td>integer</td><td><span class="badge badge-info">No</span></td><td>Approver user ID (null while pending)</td></tr>
+                            <tr><td>G</td><td><code>Approved_At</code></td><td>datetime</td><td><span class="badge badge-info">No</span></td><td>When approved</td></tr>
+                            <tr><td>H</td><td><code>Status</code></td><td>enum</td><td><span class="badge badge-success">Yes</span></td><td><code>pending</code>, <code>approved</code>, <code>rejected</code>, <code>expired</code></td></tr>
+                            <tr><td>I</td><td><code>Notes</code></td><td>string</td><td><span class="badge badge-info">No</span></td><td>Optional comment</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="sub-section-title">Config thresholds <a href="REFS.md#ref-spec-02" class="ref-tag spec">SPEC-02</a></h3>
+                <pre class="code-block"><code>{
+  "approval_thresholds": {
+    "risk_bet_usd": 5000,
+    "finance_payment_usd": 1000,
+    "strict_mode": false
+  }
+}</code></pre>
+                <p class="text-muted text-sm"><code>strict_mode: true</code> blocks downstream writes until the matching <code>Approvals</code> row is <code>approved</code>.</p>
                 <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
             </section>
 
@@ -1740,7 +1829,7 @@ flowchart TD
             <a href="README.md" class="footer-link">DOC-01</a> &nbsp;·&nbsp;
             <a href="OUTLINE.md" class="footer-link">DOC-02</a> &nbsp;·&nbsp;
             <a href="spec.html" class="footer-link">DOC-03</a> &nbsp;·&nbsp;
-            <a href="REFS.md#internal-spec-sections" class="footer-link">SPEC-01–09</a> &nbsp;·&nbsp;
+            <a href="REFS.md#internal-spec-sections" class="footer-link">SPEC-01–10</a> &nbsp;·&nbsp;
             <a href="REFS.md#ref-b01" class="footer-link ref-nav" data-ref="B01">B01</a> &nbsp;·&nbsp;
             <a href="REFS.md#ref-e01" class="footer-link ref-nav" data-ref="E01">E01</a> &nbsp;·&nbsp;
             <a href="REFS.md#ref-t01" class="footer-link ref-nav" data-ref="T01">T01</a> &nbsp;·&nbsp;

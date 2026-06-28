@@ -171,7 +171,7 @@ Canonical Ref IDs: **[REFS.md](REFS.md)** (DOC-04) · machine-readable **[refs.j
 | E | E01–E05 | [REFS.md#effect-e01-e05](REFS.md#effect-e01-e05) |
 | T | T01–T05 | [REFS.md#grammy-telegram-t01-t05](REFS.md#grammy-telegram-t01-t05) |
 | S | S01–S05 | [REFS.md#google-sheets-s01-s05](REFS.md#google-sheets-s01-s05) |
-| SPEC | SPEC-01–SPEC-09 | [REFS.md#internal-spec-sections](REFS.md#internal-spec-sections) |
+| SPEC | SPEC-01–SPEC-10 | [REFS.md#internal-spec-sections](REFS.md#internal-spec-sections) |
 | DOC | DOC-01–DOC-04 | [REFS.md#project-documents](REFS.md#project-documents) |
 
 **Key pairings:** [REFS.md#key-pairings](REFS.md#key-pairings) · **Cross-reference matrix:** [REFS.md#cross-reference-matrix](REFS.md#cross-reference-matrix) · Detail tables: [OUTLINE.md](OUTLINE.md#bun-api-references)
@@ -265,6 +265,14 @@ Full matrix: [spec.html#command-matrix](spec.html#command-matrix) · [SPEC-04](R
 | `/settleup` | Settlement summary + payment deep links | [SPEC-04](REFS.md#ref-spec-04) · [SPEC-09](REFS.md#ref-spec-09) |
 | `/check` | Verify bot math vs sheet formulas | [SPEC-03](REFS.md#ref-spec-03) · [SPEC-06](REFS.md#ref-spec-06) |
 
+### Approval commands (v2.7)
+
+| Command | Behavior | Ref IDs |
+|---------|----------|---------|
+| `/approvals pending` | List open approval requests (admin) | [SPEC-10](REFS.md#ref-spec-10) · [SPEC-04](REFS.md#ref-spec-04) |
+| `/approve <id>` | Approve request; unblock downstream action | [SPEC-10](REFS.md#ref-spec-10) |
+| `/reject <id>` | Reject request; log to AuditLog | [SPEC-10](REFS.md#ref-spec-10) |
+
 ### Admin and context rules
 
 - **`--force`** — `admin_user_ids` only; cross-topic log allowed; `Admin_Override` + `ADMIN_OVERRIDE` audit
@@ -285,6 +293,7 @@ Full specs: [spec.html#sheet-contracts](spec.html#sheet-contracts) · [SPEC-06](
 | **PaymentLog** | Payments; negative amount = Ash pays partner | [S02](REFS.md#ref-s02) |
 | **AuditLog** | Immutable log with `Payload_JSON` | [S02](REFS.md#ref-s02) |
 | **Config** | Live config; polled every 5s | [S03](REFS.md#ref-s03) · [SPEC-02](REFS.md#ref-spec-02) |
+| **Approvals** | Central sign-off audit trail (v2.7) | [SPEC-10](REFS.md#ref-spec-10) · [S02](REFS.md#ref-s02) |
 
 **AuditLog actions:** `BET_LOGGED` · `PAYMENT_LOGGED` · `CONFIRM_CLICKED` · `CANCELLED` · `REJECTED` · `ADMIN_OVERRIDE`
 
@@ -415,6 +424,23 @@ Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#re
 - Edit recalculates totals + audit entry
 - Weekly PDF posts to Admin when enabled
 
+<a id="phase-7"></a>
+
+### Phase 7 — Domain approval layer (v2.7)
+
+**Ref IDs:** [SPEC-10](REFS.md#ref-spec-10) · [SPEC-06](REFS.md#ref-spec-06) · [SPEC-04](REFS.md#ref-spec-04) · [S02](REFS.md#ref-s02) · [E02](REFS.md#ref-e02) · [T03](REFS.md#ref-t03)
+
+**Deliverables:** `Approvals` tab · `BetLog`/`PaymentLog` sign-off columns · `/approvals` · `/approve` · `/reject` · `approval_thresholds` in config
+
+**Acceptance criteria**
+
+- Big-ticket bet persists `Risk_Signoff_*` (or `Approvals` row) on confirm
+- `/settleup` above finance threshold requires approval before payment link
+- `/editbet` and `--force` log Operations approval
+- `strict_mode` blocks writes until approval status is `approved`
+
+Spec: [spec.html#domain-approvals](spec.html#domain-approvals) · Pairing: [REFS.md#key-pairings](REFS.md#key-pairings)
+
 ---
 
 ## Future enhancements
@@ -440,8 +466,9 @@ Full table: [spec.html#edge-cases](spec.html#edge-cases) · [SPEC-05](REFS.md#re
 | Sheet tabs | [#sheet-contracts](spec.html#sheet-contracts) | [SPEC-06](REFS.md#ref-spec-06) · [S01](REFS.md#ref-s01) · [S02](REFS.md#ref-s02) · [S05](REFS.md#ref-s05) |
 | Business rules | [#rules-summary](spec.html#rules-summary) | [SPEC-07](REFS.md#ref-spec-07) · [T03](REFS.md#ref-t03) · [B04](REFS.md#ref-b04) |
 | Telegram demo | [#mockup](spec.html#mockup) | [SPEC-09](REFS.md#ref-spec-09) · [T03](REFS.md#ref-t03) · [T04](REFS.md#ref-t04) |
+| Domain approvals | [#domain-approvals](spec.html#domain-approvals) | [SPEC-10](REFS.md#ref-spec-10) · [S02](REFS.md#ref-s02) · [E02](REFS.md#ref-e02) · [T03](REFS.md#ref-t03) |
 | v2.6 changelog | [#changelog](spec.html#changelog) | [SPEC-01](REFS.md#ref-spec-01) |
-| Reference registry | [REFS.md](REFS.md) | [DOC-04](REFS.md#ref-doc-04) · [B01–S05](REFS.md#external-references) · [SPEC-01–09](REFS.md#internal-spec-sections) |
+| Reference registry | [REFS.md](REFS.md) | [DOC-04](REFS.md#ref-doc-04) · [B01–S05](REFS.md#external-references) · [SPEC-01–10](REFS.md#internal-spec-sections) |
 
 ```bash
 open spec.html

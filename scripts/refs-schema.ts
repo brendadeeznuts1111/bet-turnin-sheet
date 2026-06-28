@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const REF_ID_PATTERN =
-  /^(B0[1-8]|E0[1-5]|T0[1-5]|S0[1-5]|SPEC-0[1-9]|DOC-0[1-4])$/;
+  /^(B0[1-8]|E0[1-5]|T0[1-5]|S0[1-5]|SPEC-(0[1-9]|10)|DOC-0[1-4])$/;
 
 export const RefIdSchema = z.string().regex(REF_ID_PATTERN, "Invalid Ref ID");
 

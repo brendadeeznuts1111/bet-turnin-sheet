@@ -1,9 +1,9 @@
 {
   "meta": {
     "version": 1,
-    "lastAudit": "2026-06-28T15:41:40.994Z",
+    "lastAudit": "2026-06-28T15:44:34.318Z",
     "generatedBy": "audit-refs.ts",
-    "totalRefs": 36
+    "totalRefs": 37
   },
   "groups": [
     {
@@ -55,7 +55,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -75,7 +75,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -97,7 +97,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -119,7 +119,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -139,7 +139,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -159,7 +159,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -178,7 +178,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -197,7 +197,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -217,7 +217,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -238,7 +238,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -258,7 +258,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -278,7 +278,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -298,7 +298,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -319,7 +319,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -340,7 +340,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -362,7 +362,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -382,7 +382,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -402,7 +402,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -422,7 +422,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -443,7 +443,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -463,7 +463,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -483,7 +483,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -502,7 +502,7 @@
       ],
       "deprecated": false,
       "replacedBy": null,
-      "lastChecked": "2026-06-28T15:41:40.994Z",
+      "lastChecked": "2026-06-28T15:44:34.318Z",
       "status": "ok"
     },
     {
@@ -694,6 +694,28 @@
       "status": "internal"
     },
     {
+      "id": "SPEC-10",
+      "prefix": "SPEC",
+      "topic": "Domain approvals",
+      "url": "spec.html#domain-approvals",
+      "urlLabel": "#domain-approvals",
+      "anchor": "ref-spec-10",
+      "group": "internal-spec-sections",
+      "projectUse": "Risk/Finance/Compliance/Operations sign-off layer",
+      "kind": "internal",
+      "sidebarLabel": "Approvals",
+      "tags": [
+        "spec",
+        "internal",
+        "safety",
+        "v27"
+      ],
+      "deprecated": false,
+      "replacedBy": null,
+      "lastChecked": null,
+      "status": "internal"
+    },
+    {
       "id": "DOC-01",
       "prefix": "DOC",
       "topic": "README",
@@ -848,6 +870,19 @@
         "E02",
         "SPEC-05"
       ]
+    },
+    {
+      "id": "domain-approval-flow",
+      "useCase": "Domain-specific approvals",
+      "description": "Risk, Finance, Compliance, and Operations sign-off layer",
+      "refs": [
+        "SPEC-10",
+        "SPEC-06",
+        "SPEC-04",
+        "S02",
+        "E02",
+        "T03"
+      ]
     }
   ],
   "crossRefMatrix": [
@@ -919,6 +954,15 @@
         "T04"
       ],
       "outlinePhase": "Phase 3, 6"
+    },
+    {
+      "spec": "SPEC-10",
+      "externalRefs": [
+        "S02",
+        "E02",
+        "T03"
+      ],
+      "outlinePhase": "Phase 7"
     }
   ]
 }

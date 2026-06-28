@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-06-28T15:41:40.994Z",
+  "timestamp": "2026-06-28T15:44:34.318Z",
   "flags": {
     "schemaOnly": false,
     "noNetwork": false,
     "noCache": false,
     "linksOnly": false,
     "fix": true,
-    "strict": false,
+    "strict": true,
     "report": "both"
   },
   "meta": {
     "schemaValid": true,
-    "totalRefs": 36
+    "totalRefs": 37
   },
   "summary": {
-    "passed": 36,
+    "passed": 37,
     "failed": 0,
     "warnings": 0,
     "errors": 0
@@ -230,7 +230,7 @@
     }
   ],
   "citations": {
-    "cited": 36,
+    "cited": 37,
     "unusedRefs": []
   },
   "deprecatedCited": [],
